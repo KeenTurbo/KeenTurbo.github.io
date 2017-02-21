@@ -3,13 +3,16 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"})
  */
 class User implements UserInterface
 {
@@ -28,6 +31,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Length(min="3")
      */
     private $username;
 
@@ -40,8 +45,11 @@ class User implements UserInterface
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(min="5")
      */
-    private $platPassword;
+    private $planPassword;
 
     /**
      * @var string
@@ -141,19 +149,19 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getPlatPassword()
+    public function getPlanPassword()
     {
-        return $this->platPassword;
+        return $this->planPassword;
     }
 
     /**
-     * @param string $platPassword
+     * @param string $planPassword
      *
      * @return self
      */
-    public function setPlatPassword($platPassword)
+    public function setPlanPassword($planPassword)
     {
-        $this->platPassword = $platPassword;
+        $this->planPassword = $planPassword;
 
         return $this;
     }

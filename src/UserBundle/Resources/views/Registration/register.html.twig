@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-5 m-auto pt-5">
+
+            {{ form_start(form) }}
+            <fieldset>
+                <legend>注册</legend>
+
+                {{ form_widget(form) }}
+
+                <button type="submit" class="btn btn-primary">注册</button>
+                {{ form_end(form) }}
+            </fieldset>
+        </div>
+    </div>
+
+{% endblock %}
