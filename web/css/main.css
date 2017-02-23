@@ -63,10 +63,6 @@ a.text-primary:focus {
     border-color: #b92b27;
 }
 
-.has-danger .col-form-label,
-.has-danger .custom-control,
-.has-danger .form-check-label,
-.has-danger .form-control-feedback,
-.has-danger .form-control-label {
+.has-danger .col-form-label, .has-danger .custom-control, .has-danger .form-check-label, .has-danger .form-control-feedback, .has-danger .form-control-label {
     color: #b92b27;
 }
