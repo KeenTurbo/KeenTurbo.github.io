@@ -31,8 +31,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Length(min="3")
+     * @Assert\NotBlank(message="请输入用户名")
+     * @Assert\Length(min="3", minMessage="用户名长度不能少于 {{ limit }} 个字符", max="20", maxMessage="用户名长度不能大于 {{ limit }} 个字符")
      */
     private $username;
 
@@ -46,8 +46,8 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @Assert\NotBlank
-     * @Assert\Length(min="5")
+     * @Assert\NotBlank(message="请输入密码")
+     * @Assert\Length(min="5", minMessage="密码长度不能少于 {{ limit }} 个字符")
      */
     private $planPassword;
 
