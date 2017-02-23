@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="csh_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @UniqueEntity(fields={"username"})
  */
