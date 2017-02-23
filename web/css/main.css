@@ -1,0 +1,72 @@
+body {
+    font-size: 0.875rem;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+header {
+    border-top: 2px solid #b92b27;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.2);
+}
+
+a, a:hover {
+    color: #2b6dad;
+}
+
+.bg-white {
+    background: #fff !important;
+}
+
+a.text-primary {
+    color: #b92b27 !important;
+}
+
+a.text-primary:hover,
+a.text-primary:focus {
+    color: #b92b27 !important;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn-primary,
+.btn-primary:hover {
+    background: #3e78ad;
+    border-color: #3a66ad;
+    box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.6);
+}
+
+.btn-primary:hover {
+    border: 1px solid #234462;
+}
+
+.btn-primary:focus {
+    box-shadow: inset 1px 0 0 #fff, inset -1px 0 0 #fff, inset 0 1px 0 #fff, inset 0 -1px 0 #fff;
+}
+
+.btn-primary:active {
+    opacity: .6;
+    box-shadow: none;
+}
+
+.form-control {
+    box-shadow: inset 0 1px 1px rgba(200, 200, 200, 0.3);
+}
+
+.form-control:focus {
+    border-color: #999;
+}
+
+.has-danger .form-control {
+    border-color: #b92b27;
+}
+
+.has-danger .col-form-label,
+.has-danger .custom-control,
+.has-danger .form-check-label,
+.has-danger .form-control-feedback,
+.has-danger .form-control-label {
+    color: #b92b27;
+}

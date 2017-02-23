@@ -1,19 +1,22 @@
 {% extends '::base.html.twig' %}
 
-{% block main %}
+{% block body %}
 
     <div class="row">
-        <div class="col-5 m-auto pt-5">
+        <div class="col-md-5 col-sm-12 m-auto pt-5">
+            <div class="card">
+                <h5 class="card-header mb-0 pt-4 pb-4 font-weight-normal">欢迎加入长沙之家</h5>
+                <div class="card-block p-4">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    {{ form_widget(form) }}
 
-            {{ form_start(form) }}
-            <fieldset>
-                <legend>注册</legend>
-
-                {{ form_widget(form) }}
-
-                <button type="submit" class="btn btn-primary">注册</button>
-                {{ form_end(form) }}
-            </fieldset>
+                    <button type="submit" class="btn btn-primary">注册</button>
+                    {{ form_end(form) }}
+                </div>
+                <div class="card-footer text-center text-muted">
+                    已经注册？<a href="{{ path('security_login') }}">立即登录</a>
+                </div>
+            </div>
         </div>
     </div>
 
