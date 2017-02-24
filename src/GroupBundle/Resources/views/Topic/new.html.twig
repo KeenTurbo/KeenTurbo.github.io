@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-8 m-auto pt-5">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+
+            <button type="submit" class="btn btn-primary">发布主题</button>
+            <a class="btn btn-secondary ml-5" href="{{ path('group_index', {'id': group.id}) }}">返回</a>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

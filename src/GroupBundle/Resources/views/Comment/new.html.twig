@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    返回 <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a>
+
+    {{ include('GroupBundle:Comment:new_form.html.twig') }}
+
+{% endblock %}

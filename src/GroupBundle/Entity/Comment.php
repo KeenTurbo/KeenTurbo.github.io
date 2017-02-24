@@ -3,6 +3,7 @@
 namespace GroupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 
 /**
@@ -26,6 +27,8 @@ class Comment
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="内容不能为空")
+     * @Assert\Length(max="10000", maxMessage="内容长度不能超过 {{ limit }} 个字符")
      */
     private $body;
 

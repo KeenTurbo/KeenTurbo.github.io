@@ -20,21 +20,32 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="container">
-                        <a class="navbar-brand text-primary" href="/">长沙之家</a>
+                        <a class="navbar-brand text-primary" href="{{ path('homepage') }}">长沙之家</a>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link font-weight-bold" href=""><i class="fa fa-home"></i> 首页</a>
+                                    <a class="nav-link font-weight-bold" href="{{ path('homepage') }}"><i
+                                                class="fa fa-home"></i> 首页</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link font-weight-bold" href=""><i class="fa fa-comments"></i> 讨论</a>
+                                    <a class="nav-link font-weight-bold" href=""><i
+                                                class="fa fa-comments"></i> 讨论</a>
                                 </li>
                             </ul>
+
                             <ul class="navbar-nav">
                                 {% if app.user %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('security_logout') }}">退出</a>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                            {{ app.user.username }}
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#">设置</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
+                                        </div>
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
@@ -50,13 +61,13 @@
                 </nav>
             </header>
         {% endblock %}
-        <div class="container body-container">
+        <div class="container body-container py-4">
             {% block body %}
                 <div class="row">
-                    <div id="main" class="col-9">
+                    <div id="main" class="col-8">
                         {% block main %}{% endblock %}
                     </div>
-                    <div id="sidebar" class="col-3">
+                    <div id="sidebar" class="col-4">
                         {% block sidebar %}{% endblock %}
                     </div>
                 </div>

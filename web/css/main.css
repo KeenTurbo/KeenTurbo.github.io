@@ -66,3 +66,7 @@ a.text-primary:focus {
 .has-danger .col-form-label, .has-danger .custom-control, .has-danger .form-check-label, .has-danger .form-control-feedback, .has-danger .form-control-label {
     color: #b92b27;
 }
+
+.topic-item {
+    border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+}

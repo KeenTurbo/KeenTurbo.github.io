@@ -1,0 +1,17 @@
+{{ form_start(form, { method: 'POST', action: path('comment_new', {'id': topic.id}) }) }}
+<fieldset>
+    <legend>发表评论</legend>
+
+    {{ form_errors(form) }}
+
+    <div class="form-group {% if not form.body.vars.valid %}has-danger{% endif %}">
+        {{ form_errors(form.body) }}
+
+        {{ form_widget(form.body, { attr: { rows: 3 } }) }}
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary pull-right" type="submit">发布</button>
+    </div>
+</fieldset>
+{{ form_end(form) }}

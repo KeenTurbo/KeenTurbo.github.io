@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+
+    <div class="topic-content">
+        <h4 class="font-weight-normal">{{ topic.title }}</h4>
+        <span class="text-muted"><a
+                    href="">{{ topic.user.username }}</a> 发布于 {{ topic.createdAt | date('Y/m/d') }}</span>
+
+        <div class="topic-body">
+            {{ topic.body }}
+        </div>
+    </div>
+
+    <div class="topic-comments my-5">
+        <h5>回复</h5>
+        {% for comment in comments %}
+            <div class="topic-comment">
+                <span class="text-muted"><a
+                            href="">{{ comment.user.username }}</a> 发布于 {{ comment.createdAt | date('Y/m/d') }}</span>
+            </div>
+            <div class="topic-comment-body">
+                {{ comment.body }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="comment-add">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
+        {% else %}
+            <p>
+                <a class="btn btn-success" href="{{ path('security_login') }}">
+                    登录
+                </a>
+            </p>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+
+{% block sidebar %}
+
+    <div class="card">
+        <div class="card-block">
+            返回<a href="{{ path('group_index', {'id': topic.group.id}) }}">{{ topic.group.name }}</a>
+        </div>
+    </div>
+
+{% endblock %}

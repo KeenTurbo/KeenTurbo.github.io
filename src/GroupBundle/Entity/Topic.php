@@ -3,6 +3,7 @@
 namespace GroupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 
 /**
@@ -26,6 +27,7 @@ class Topic
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="请输入标题")
      */
     private $title;
 
@@ -33,6 +35,8 @@ class Topic
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="请输入内容")
+     * @Assert\Length(min="10", max="10000", minMessage="内容至少 {{ limit }} 个字符", maxMessage="内容不能超过 {{ limit }} 个字符")
      */
     private $body;
 

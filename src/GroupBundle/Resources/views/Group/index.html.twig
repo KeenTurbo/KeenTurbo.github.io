@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+
+    <div class="mt-4">
+        <div class="clearfix my-lg-5">
+            <h4 class="float-left font-weight-normal">话题</h4>
+            <a class="btn btn-primary btn-sm float-right" href="{{ path('topic_new', {'id': group.id}) }}">发表话题</a>
+        </div>
+
+        <div class="topic">
+            <div class="row topic-item py-2">
+                <div class="col-6 text-muted">标题</div>
+                <div class="col-2 text-muted">作者</div>
+                <div class="col-2 text-muted">回复</div>
+                <div class="col-2 text-right text-muted">最后回复</div>
+            </div>
+            {% for topic in topics %}
+                <div class="row topic-item py-2">
+                    <div class="col-6"><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></div>
+                    <div class="col-2"><a href="">{{ topic.user.username }}</a></div>
+                    <div class="col-2 text-muted">12</div>
+                    <div class="col-2 text-right text-muted">{{ topic.createdAt | date('Y/m/d') }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="card mt-4">
+        <div class="card-header">header</div>
+        <div class="card-block">
+            text
+        </div>
+    </div>
+
+{% endblock %}
