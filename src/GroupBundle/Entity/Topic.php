@@ -34,11 +34,18 @@ class Topic
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank(message="请输入内容")
      * @Assert\Length(min="10", max="10000", minMessage="内容至少 {{ limit }} 个字符", maxMessage="内容不能超过 {{ limit }} 个字符")
      */
     private $body;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $numComments;
 
     /**
      * @var \DateTime
@@ -82,6 +89,7 @@ class Topic
      */
     public function __construct()
     {
+        $this->numComments = 0;
         $this->createdAt = new \DateTime();
     }
 
@@ -131,6 +139,46 @@ class Topic
         $this->body = $body;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * @param int $numComments
+     *
+     * @return self
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = intval($numComments);
+
+        return $this;
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function incrementNumComments($by = 1)
+    {
+        return $this->numComments += intval($by);
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function decrementNumComments($by = 1)
+    {
+        return $this->numComments -= intval($by);
     }
 
     /**

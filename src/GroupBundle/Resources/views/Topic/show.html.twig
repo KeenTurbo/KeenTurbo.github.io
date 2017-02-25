@@ -1,40 +1,79 @@
 {% extends '::base.html.twig' %}
 
 {% block main %}
-
-    <div class="topic-content">
-        <h4 class="font-weight-normal">{{ topic.title }}</h4>
-        <span class="text-muted"><a
-                    href="">{{ topic.user.username }}</a> 发布于 {{ topic.createdAt | date('Y/m/d') }}</span>
-
-        <div class="topic-body">
-            {{ topic.body }}
+    <div class="group-discussion-topic-view">
+        <div class="discussion-topic-header">
+            <h5>{{ topic.title }}</h5>
         </div>
-    </div>
 
-    <div class="topic-comments my-5">
-        <h5>回复</h5>
-        {% for comment in comments %}
-            <div class="topic-comment">
-                <span class="text-muted"><a
-                            href="">{{ comment.user.username }}</a> 发布于 {{ comment.createdAt | date('Y/m/d') }}</span>
+        <div class="topic">
+            <div class="message">
+                <div class="author">
+                    <a href="">{{ topic.user.username }}</a> <span
+                            class="since">发布于 {{ topic.createdAt | date('Y-m-d H:i:s') }}</span>
+                </div>
+                <div class="actions">
+                    <a class="reply" href="#comment"><i class="fa fa-reply"></i> 回复</a>
+                    {% if group_can_edit_topic(topic) %}
+                        <a class="edit" href="{{ path('group_topic_edit', {'id': topic.id}) }}"><i
+                                    class="fa fa-edit"></i> 编辑</a>
+                    {% endif %}
+                    {% if group_can_delete_topic(topic) %}
+                        <a class="delete" href="{{ path('group_topic_delete', {'id': topic.id}) }}"
+                           onclick="return confirm('确认删除该主题吗？')"><i
+                                    class="fa fa-remove"></i>
+                            删除</a>
+                    {% endif %}
+                </div>
+                <div class="message-text">
+                    {{ topic.body | nl2br }}
+                </div>
             </div>
-            <div class="topic-comment-body">
-                {{ comment.body }}
-            </div>
-        {% endfor %}
-    </div>
+        </div>
 
-    <div class="comment-add">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
-        {% else %}
-            <p>
-                <a class="btn btn-success" href="{{ path('security_login') }}">
-                    登录
-                </a>
-            </p>
-        {% endif %}
+        <div class="comments">
+            <h5 class="comment-counts">{{ topic.numComments }} 个回复</h5>
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="message">
+                        <div class="author">
+                            <a href="">{{ comment.user.username }}</a> <span
+                                    class="since">{{ comment.createdAt | date('Y-m-d H:i:s') }}</span>
+                        </div>
+                        <div class="actions">
+                            <a class="reply" href="#comment"><i class="fa fa-reply"></i> 回复</a>
+
+                            {% if group_can_edit_topic_comment(comment) %}
+                                <a class="edit" href="{{ path('group_topic_comment_edit', {'id': comment.id}) }}"><i
+                                            class="fa fa-edit"></i> 编辑</a>
+                            {% endif %}
+                            {% if group_can_delete_topic_comment(comment) %}
+                                <a class="delete" href="{{ path('group_topic_comment_delete', {'id': comment.id}) }}"
+                                   onclick="return confirm('确认删除该回复吗？')"><i
+                                            class="fa fa-remove"></i>
+                                    删除</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="message-text">
+                            {{ comment.body | nl2br }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="post" id="comment">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
+            {% else %}
+                <div class="py-5">
+                    <a class="btn btn-primary btn-sm" href="{{ path('security_login') }}">
+                        登录后回复
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 
 {% endblock %}
@@ -44,7 +83,7 @@
 
     <div class="card">
         <div class="card-block">
-            返回<a href="{{ path('group_index', {'id': topic.group.id}) }}">{{ topic.group.name }}</a>
+            返回<a href="{{ path('group_topic', {'id': topic.group.id}) }}">{{ topic.group.name }}</a>
         </div>
     </div>
 

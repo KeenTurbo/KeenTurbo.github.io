@@ -29,6 +29,13 @@ class Group
     private $name;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $numTopics;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -40,6 +47,7 @@ class Group
      */
     public function __construct()
     {
+        $this->numTopics = 0;
         $this->createdAt = new \DateTime();
     }
 
@@ -69,6 +77,46 @@ class Group
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumTopics()
+    {
+        return $this->numTopics;
+    }
+
+    /**
+     * @param int $numTopics
+     *
+     * @return self
+     */
+    public function setNumTopics($numTopics)
+    {
+        $this->numTopics = intval($numTopics);
+
+        return $this;
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function incrementNumTopics($by = 1)
+    {
+        return $this->numTopics += intval($by);
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function decrementNumTopics($by = 1)
+    {
+        return $this->numTopics -= intval($by);
     }
 
     /**

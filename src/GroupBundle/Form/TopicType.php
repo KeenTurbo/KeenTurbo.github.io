@@ -26,7 +26,7 @@ class TopicType extends AbstractType
             ->add('body', TextareaType::class, [
                 'label' => '内容',
                 'attr'  => [
-                    'rows' => 12
+                    'rows' => 16
                 ]
             ]);
     }

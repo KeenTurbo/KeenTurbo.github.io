@@ -1,16 +1,17 @@
 {% extends '::base.html.twig' %}
 
-{% block body %}
+{% block main %}
 
-    <div class="row">
-        <div class="col-md-8 m-auto pt-5">
-            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-            {{ form_widget(form) }}
+    <h5 class="mb-4"><a href="{{ path('group_topic', {'id': group.id}) }}">{{ group.name }}</a> / 发表新主题</h5>
 
-            <button type="submit" class="btn btn-primary">发布主题</button>
-            <a class="btn btn-secondary ml-5" href="{{ path('group_index', {'id': group.id}) }}">返回</a>
-            {{ form_end(form) }}
-        </div>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary btn-sm">发起主题</button>
+    {{ form_end(form) }}
+
+    <div class="py-2">
+        或 <a href="{{ path('group_topic', {'id': group.id}) }}">回到{{ group.name }}</a>
     </div>
 
 {% endblock %}

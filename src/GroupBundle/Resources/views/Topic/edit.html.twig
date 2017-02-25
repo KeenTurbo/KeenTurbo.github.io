@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block main %}
+
+    <h5 class="mb-4"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a> / 编辑主题</h5>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary btn-sm">保存</button>
+    {{ form_end(form) }}
+
+    <div class="py-2">
+        或 <a href="{{ path('group_topic_show', {'id': topic.id}) }}">取消修改</a>
+    </div>
+
+{% endblock %}

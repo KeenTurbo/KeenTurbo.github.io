@@ -1,5 +1,5 @@
 body {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 }
@@ -12,6 +12,12 @@ header {
 
 a, a:hover {
     color: #2b6dad;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 960px;
+    }
 }
 
 .bg-white {
@@ -43,6 +49,7 @@ a.text-primary:focus {
 }
 
 .btn-primary:focus {
+    color: #fff;
     box-shadow: inset 1px 0 0 #fff, inset -1px 0 0 #fff, inset 0 1px 0 #fff, inset 0 -1px 0 #fff;
 }
 
@@ -69,4 +76,67 @@ a.text-primary:focus {
 
 .topic-item {
     border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+}
+
+.group-discussion-topic-view .message-text {
+    clear: right;
+    padding-top: 10px;
+    margin-right: 20px;
+}
+
+.group-discussion-topic-view .comments {
+    margin: 20px 0;
+}
+
+.group-discussion-topic-view .comments .comment-counts {
+    font-size: 1rem;
+    border-bottom: 1px solid #eceeef;
+    padding-bottom: 10px;
+}
+
+.group-discussion-topic-view .comment {
+    border-bottom: 1px solid #eceeef;
+}
+
+.group-discussion-topic-view .topic,
+.group-discussion-topic-view .comment {
+    padding: 15px 0;
+}
+
+.group-discussion-topic-view .message .author {
+    float: left;
+}
+
+.group-discussion-topic-view .message .author .since {
+    margin-left: 10px;
+    color: #636c72;
+}
+
+.group-discussion-topic-view .message .actions {
+    opacity: 0;
+    float: right;
+    transition: opacity .15s ease-in-out;
+}
+
+.group-discussion-topic-view .topic:hover .message .actions,
+.group-discussion-topic-view .comment:hover .message .actions {
+    opacity: 1;
+}
+
+.group-discussion-topic-view .message .actions .reply,
+.group-discussion-topic-view .message .actions .edit,
+.group-discussion-topic-view .message .actions .delete {
+    margin-right: 10px;
+    color: #999;
+}
+
+.group-discussion-topic-view .message .actions .reply:hover,
+.group-discussion-topic-view .message .actions .edit:hover,
+.group-discussion-topic-view .message .actions .delete:hover {
+    color: gray;
+    text-decoration: none;
+}
+
+.group-discussion-topic-view .comment {
+    position: relative;
 }

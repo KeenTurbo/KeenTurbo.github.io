@@ -26,7 +26,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank(message="内容不能为空")
      * @Assert\Length(max="10000", maxMessage="内容长度不能超过 {{ limit }} 个字符")
      */

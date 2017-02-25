@@ -12,11 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="csh_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
- * @UniqueEntity(fields={"username"})
+ * @UniqueEntity("username", message="用户名不可用")
  */
 class User implements UserInterface
 {
     const ROLE_USER = 'ROLE_USER';
+
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
      * @var int
@@ -59,6 +61,13 @@ class User implements UserInterface
     private $salt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="array")
@@ -71,6 +80,20 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $enabled;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $numTopics;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $numComments;
 
     /**
      * @var \DateTime
@@ -86,6 +109,8 @@ class User implements UserInterface
     {
         $this->salt = md5(uniqid(mt_rand(), true));
         $this->roles = [];
+        $this->numTopics = 0;
+        $this->numComments = 0;
         $this->enabled = true;
         $this->createdAt = new \DateTime();
     }
@@ -167,6 +192,26 @@ class User implements UserInterface
     }
 
     /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getRoles()
@@ -178,11 +223,142 @@ class User implements UserInterface
     }
 
     /**
+     * @param string $role
+     *
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    /**
+     * @param string $role
+     *
+     * @return self
+     */
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if ($role === self::ROLE_USER) {
+            return $this;
+        }
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $role
+     *
+     * @return self
+     */
+    public function removeRole($role)
+    {
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        return $this->hasRole(self::ROLE_SUPER_ADMIN);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function eraseCredentials()
     {
         $this->platPassword = null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumTopics()
+    {
+        return $this->numTopics;
+    }
+
+    /**
+     * @param int $numTopics
+     *
+     * @return self
+     */
+    public function setNumTopics($numTopics)
+    {
+        $this->numTopics = intval($numTopics);
+
+        return $this;
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function incrementNumTopics($by = 1)
+    {
+        return $this->numTopics += intval($by);
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function decrementNumTopics($by = 1)
+    {
+        return $this->numTopics -= intval($by);
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * @param int $numComments
+     *
+     * @return self
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = intval($numComments);
+
+        return $this;
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function incrementNumComments($by = 1)
+    {
+        return $this->numComments += intval($by);
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function decrementNumComments($by = 1)
+    {
+        return $this->numComments -= intval($by);
     }
 
     /**

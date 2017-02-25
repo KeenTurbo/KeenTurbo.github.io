@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use UserBundle\Entity\User;
 use UserBundle\Form\UserType;
 
@@ -34,6 +35,13 @@ class RegistrationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            // Authentication
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $authToken = $this->get('security.authentication.manager')->authenticate($token);
+            $this->get('security.token_storage')->setToken($authToken);
+
+            return $this->redirect('/');
         }
 
         return $this->render('UserBundle:Registration:register.html.twig', [

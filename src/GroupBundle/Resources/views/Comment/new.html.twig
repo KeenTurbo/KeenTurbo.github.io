@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    返回 <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a>
+    <h5 class="mb-4"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a> / 发表回复</h5>
 
     {{ include('GroupBundle:Comment:new_form.html.twig') }}
 
