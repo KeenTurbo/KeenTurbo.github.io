@@ -29,7 +29,7 @@ class RegistrationController extends Controller
             /** @var User $user */
             $user = $form->getData();
 
-            $encodedPassword = $this->get('security.password_encoder')->encodePassword($user, $user->getPlanPassword());
+            $encodedPassword = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($encodedPassword);
 
             $em = $this->getDoctrine()->getManager();

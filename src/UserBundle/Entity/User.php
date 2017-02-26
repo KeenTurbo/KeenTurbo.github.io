@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="csh_user")
+ * @ORM\Table(name="cshome_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @UniqueEntity("username", message="用户名不可用")
  */
@@ -51,7 +51,7 @@ class User implements UserInterface
      * @Assert\NotBlank(message="请输入密码")
      * @Assert\Length(min="5", minMessage="密码长度不能少于 {{ limit }} 个字符")
      */
-    private $planPassword;
+    private $plainPassword;
 
     /**
      * @var string
@@ -174,19 +174,19 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getPlanPassword()
+    public function getPlainPassword()
     {
-        return $this->planPassword;
+        return $this->plainPassword;
     }
 
     /**
-     * @param string $planPassword
+     * @param string $plainPassword
      *
      * @return self
      */
-    public function setPlanPassword($planPassword)
+    public function setPlainPassword($plainPassword)
     {
-        $this->planPassword = $planPassword;
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

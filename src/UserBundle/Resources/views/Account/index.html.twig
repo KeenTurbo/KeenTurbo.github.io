@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title '我的账号' %}
+
+{% block main %}
+
+    <div class="account-view">
+        <h5 class="mb-4">我的账号</h5>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ path('account_index') }}">个人资料</a>
+            </li>
+        </ul>
+
+        <div class="row my-3">
+            <div class="col-5">用户名</div>
+            <div class="col-7">{{ user.username }}</div>
+        </div>
+        <div class="row my-3">
+            <div class="col-5">昵称</div>
+            <div class="col-7">{{ user.name | default('未设置') }}</div>
+        </div>
+        <div class="row my-3">
+            <div class="col-5">登录密码</div>
+            <div class="col-7"><a href="{{ path('account_edit_password') }}">修改密码</a></div>
+        </div>
+    </div>
+
+{% endblock %}
