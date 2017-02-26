@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title '回复"' ~ topic.title ~ '"' %}
+
 {% block main %}
 
     <h5 class="mb-4"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a> / 发表回复</h5>

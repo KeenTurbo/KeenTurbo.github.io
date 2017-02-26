@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="csh_group")
+ * @ORM\Table(name="cshome_group")
  * @ORM\Entity(repositoryClass="GroupBundle\Repository\GroupRepository")
  */
 class Group
@@ -27,6 +27,20 @@ class Group
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=500)
+     */
+    private $description;
 
     /**
      * @var int
@@ -75,6 +89,46 @@ class Group
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return self
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }

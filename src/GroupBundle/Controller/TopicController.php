@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TopicController extends Controller
 {
     /**
-     * @Route("/group/{id}/topic/new", name="group_topic_new", requirements={"id": "\d+"})
+     * @Route("/group/{slug}/new_topic", name="group_topic_new")
      * @Method({"GET", "POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -99,13 +99,12 @@ class TopicController extends Controller
 
         $this->get('event_dispatcher')->dispatch(Events::TOPIC_DELETED, $event);
 
-        return $this->redirectToRoute('group_topic', ['id' => $topic->getGroup()->getId()]);
+        return $this->redirectToRoute('group_topic', ['slug' => $topic->getGroup()->getSlug()]);
     }
 
     /**
      * @Route("/group/topic/{id}", name="group_topic_show", requirements={"id": "\d+"})
      * @Method("GET")
-     * @Security("is_granted('view', topic)")
      */
     public function showAction(Topic $topic)
     {

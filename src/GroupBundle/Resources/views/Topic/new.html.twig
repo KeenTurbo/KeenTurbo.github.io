@@ -1,8 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block title '发表新主题' %}
+
 {% block main %}
 
-    <h5 class="mb-4"><a href="{{ path('group_topic', {'id': group.id}) }}">{{ group.name }}</a> / 发表新主题</h5>
+    <h5 class="mb-4"><a href="{{ path('group_topic', {'slug': group.slug}) }}">{{ group.name }}</a> / 发表新主题</h5>
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
@@ -11,7 +13,7 @@
     {{ form_end(form) }}
 
     <div class="py-2">
-        或 <a href="{{ path('group_topic', {'id': group.id}) }}">回到{{ group.name }}</a>
+        或 <a href="{{ path('group_topic', {'slug': group.slug}) }}">回到{{ group.name }}</a>
     </div>
 
 {% endblock %}

@@ -30,7 +30,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link font-weight-bold" href="{{ path('group_index') }}"><i
-                                                class="fa fa-comments"></i> 讨论</a>
+                                                class="fa fa-comments"></i> 群组</a>
                                 </li>
                             </ul>
 
@@ -38,11 +38,11 @@
                                 {% if app.user %}
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                        <a class="nav-link dropdown-toggle" href="{{ path('account_index') }}" data-toggle="dropdown">
                                             {{ app.user.username }}
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#">设置</a>
+                                            <a class="dropdown-item" href="{{ path('account_index') }}">我的账号</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
                                         </div>

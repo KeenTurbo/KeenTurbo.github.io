@@ -9,7 +9,7 @@ use UserBundle\Entity\User;
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="csh_topic")
+ * @ORM\Table(name="cshome_topic")
  * @ORM\Entity(repositoryClass="GroupBundle\Repository\TopicRepository")
  */
 class Topic
@@ -36,7 +36,7 @@ class Topic
      *
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="请输入内容")
-     * @Assert\Length(min="10", max="10000", minMessage="内容至少 {{ limit }} 个字符", maxMessage="内容不能超过 {{ limit }} 个字符")
+     * @Assert\Length(min="5", max="10000", minMessage="内容至少 {{ limit }} 个字符", maxMessage="内容不能超过 {{ limit }} 个字符")
      */
     private $body;
 

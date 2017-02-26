@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% block title topic.title %}
+
 {% block main %}
     <div class="group-discussion-topic-view">
         <div class="discussion-topic-header">
@@ -38,7 +40,7 @@
                     <div class="message">
                         <div class="author">
                             <a href="">{{ comment.user.username }}</a> <span
-                                    class="since">{{ comment.createdAt | date('Y-m-d H:i:s') }}</span>
+                                    class="since">{{ comment.createdAt | date('m-d H:i:s') }}</span>
                         </div>
                         <div class="actions">
                             <a class="reply" href="#comment"><i class="fa fa-reply"></i> 回复</a>
@@ -67,10 +69,10 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
             {% else %}
-                <div class="py-5">
-                    <a class="btn btn-primary btn-sm" href="{{ path('security_login') }}">
-                        登录后回复
-                    </a>
+                <div class="card py-5">
+                    <div class="card-text text-center text-muted">
+                        <a href="{{ path('security_login') }}">登录</a>后回复主题
+                    </div>
                 </div>
             {% endif %}
         </div>
@@ -83,7 +85,7 @@
 
     <div class="card">
         <div class="card-block">
-            返回<a href="{{ path('group_topic', {'id': topic.group.id}) }}">{{ topic.group.name }}</a>
+            返回<a href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
         </div>
     </div>
 

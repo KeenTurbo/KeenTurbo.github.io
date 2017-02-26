@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% block title '编辑"' ~ topic.title ~ '"' %}
+
 {% block main %}
 
     <h5 class="mb-4"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a> / 编辑主题</h5>
@@ -11,7 +13,7 @@
     {{ form_end(form) }}
 
     <div class="py-2">
-        或 <a href="{{ path('group_topic_show', {'id': topic.id}) }}">取消修改</a>
+        或 <a href="{{ path('group_topic_show', {'id': topic.id}) }}">取消编辑</a>
     </div>
 
 {% endblock %}

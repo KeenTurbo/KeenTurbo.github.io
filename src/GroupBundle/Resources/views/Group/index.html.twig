@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% block title '群组' %}
+
 {% block main %}
 
     <div class="group-discussion-view">
@@ -21,7 +23,7 @@
                     <td class="text-muted">{{ topic.numComments }}</td>
                     <td class="text-right text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
                     <td class="text-right text-muted"><a
-                                href="{{ path('group_topic', {'id': topic.group.id}) }}">{{ topic.group.name }}</a></td>
+                                href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a></td>
                 </tr>
             {% endfor %}
         </table>

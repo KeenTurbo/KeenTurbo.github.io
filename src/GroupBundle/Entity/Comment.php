@@ -9,7 +9,7 @@ use UserBundle\Entity\User;
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="csh_comment")
+ * @ORM\Table(name="cshome_topic_comment")
  * @ORM\Entity(repositoryClass="GroupBundle\Repository\CommentRepository")
  */
 class Comment

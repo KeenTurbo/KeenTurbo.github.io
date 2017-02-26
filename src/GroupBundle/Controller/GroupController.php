@@ -28,7 +28,7 @@ class GroupController extends Controller
     }
 
     /**
-     * @Route("/group/{id}/topic", name="group_topic", requirements={"id": "\d+"})
+     * @Route("/group/{slug}", name="group_topic")
      * @Method("GET")
      */
     public function showAction(Group $group)
