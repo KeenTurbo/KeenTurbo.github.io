@@ -3,9 +3,9 @@
 {% block title topic.title %}
 
 {% block main %}
-    <div class="group-discussion-topic-view">
+    <div class="group-discussion-topic">
         <div class="discussion-topic-header">
-            <h5>{{ topic.title }}</h5>
+            <h4>{{ topic.title }}</h4>
         </div>
 
         <div class="topic">
@@ -70,7 +70,7 @@
                 {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
             {% else %}
                 <div class="card py-5">
-                    <div class="card-text text-center text-muted">
+                    <div class="card-block text-center text-muted">
                         <a href="{{ path('security_login') }}">登录</a>后回复主题
                     </div>
                 </div>

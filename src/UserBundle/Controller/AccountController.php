@@ -50,6 +50,8 @@ class AccountController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', '密码已更新');
+
             return $this->redirectToRoute('account_index');
         }
 

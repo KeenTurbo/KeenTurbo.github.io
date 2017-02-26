@@ -15,6 +15,7 @@ class GroupController extends Controller
 {
     /**
      * @Route("/group", name="group_index")
+     * @Route("/", name="homepage")
      * @Method("GET")
      */
     public function indexAction()

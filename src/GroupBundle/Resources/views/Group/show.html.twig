@@ -4,26 +4,20 @@
 
 {% block main %}
 
-    <div class="group-discussion-view">
+    <div class="section group-discussion">
 
-        <div class="mb-4">
-            <h5 class="d-inline-block mr-4">{{ group.name }}</h5>
-            <a class="btn btn-primary btn-sm pull-right" href="{{ path('group_topic_new', {'slug': group.slug}) }}">发表主题</a>
-        </div>
+        <h5 class="section-header">
+            {{ group.name }}
+            <a class="btn btn-outline-primary btn-sm pull-right" href="{{ path('group_topic_new', {'slug': group.slug}) }}">发表主题</a>
+        </h5>
 
-        <table class="table">
-            <tr class="text-muted">
-                <td>标题</td>
-                <td>作者</td>
-                <td class="text-right">回复</td>
-                <td class="text-right">最后回复</td>
-            </tr>
+        <table class="table topics">
             {% for topic in topics %}
-                <tr>
-                    <td><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
-                    <td><a href="">{{ topic.user.username }}</a></td>
-                    <td class="text-right text-muted">{{ topic.numComments }}</td>
-                    <td class="text-right text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
+                <tr class="topic">
+                    <td class="title"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
+                    <td class="comments text-center text-muted">{{ topic.numComments }}回复</td>
+                    <td class="created-at text-center text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
+                    <td class="author text-right"><a href="">{{ topic.user.username }}</a></td>
                 </tr>
             {% endfor %}
         </table>

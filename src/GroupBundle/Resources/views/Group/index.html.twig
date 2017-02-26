@@ -4,26 +4,19 @@
 
 {% block main %}
 
-    <div class="group-discussion-view">
+    <div class="section group-discussion">
 
-        <div class="mb-4">
-            <h5>最新主题</h5>
-        </div>
+        <h5 class="section-header">最新主题</h5>
 
-        <table class="table">
-            <tr class="text-muted">
-                <td>标题</td>
-                <td>回复</td>
-                <td class="text-right">最后回复</td>
-                <td class="text-right">群组</td>
-            </tr>
+        <table class="table topics">
             {% for topic in topics %}
-                <tr>
-                    <td><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
-                    <td class="text-muted">{{ topic.numComments }}</td>
-                    <td class="text-right text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
-                    <td class="text-right text-muted"><a
-                                href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a></td>
+                <tr class="topic">
+                    <td class="title"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
+                    <td class="comments text-center text-muted">{{ topic.numComments }}回复</td>
+                    <td class="created-at text-center text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
+                    <td class="group text-right"><a
+                                href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>

@@ -4,16 +4,19 @@
 
 {% block main %}
 
-    <h5 class="mb-4"><a href="{{ path('group_topic', {'slug': group.slug}) }}">{{ group.name }}</a> / 发表新主题</h5>
+    <div class="section">
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
+        <h5 class="section-header"><a href="{{ path('group_topic', {'slug': group.slug}) }}">{{ group.name }}</a> / 发表新主题</h5>
 
-    <button type="submit" class="btn btn-primary btn-sm">发起主题</button>
-    {{ form_end(form) }}
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
 
-    <div class="py-2">
-        或 <a href="{{ path('group_topic', {'slug': group.slug}) }}">回到{{ group.name }}</a>
+        <button type="submit" class="btn btn-primary">发起主题</button>
+        {{ form_end(form) }}
+
+        <div class="py-2">
+            或 <a href="{{ path('group_topic', {'slug': group.slug}) }}">回到{{ group.name }}</a>
+        </div>
     </div>
 
 {% endblock %}
