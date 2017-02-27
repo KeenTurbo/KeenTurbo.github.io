@@ -1,11 +1,11 @@
 services:
-    group.topic_counters_listener:
+    group.topic_counters_subscriber:
         class: GroupBundle\EventListener\TopicCountersSubscriber
         arguments: ['@doctrine.orm.entity_manager']
         tags:
             - { name: kernel.event_subscriber }
 
-    group.group_counters_listener:
+    group.group_counters_subscriber:
         class: GroupBundle\EventListener\GroupCountersSubscriber
         arguments: ['@doctrine.orm.entity_manager']
         tags:
