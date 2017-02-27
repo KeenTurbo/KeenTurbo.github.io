@@ -33,6 +33,11 @@ a, a:hover {
     background: #fff !important;
 }
 
+.navbar {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+
 .navbar .navbar-brand {
     color: #b92b27 !important;
 }
