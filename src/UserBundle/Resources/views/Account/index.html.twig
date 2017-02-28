@@ -4,12 +4,24 @@
 
 {% block main %}
 
-    <div class="section">
-        <h5 class="section-header">我的账号</h5>
-
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ path('account_index') }}">我的账号</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('account_edit_password') }}">修改密码</a>
+        </li>
+    </ul>
+    <div class="section w-50 my-4">
         <div class="row py-2">
             <div class="col-4">用户名</div>
             <div class="col-8">{{ user.username }}</div>
+        </div>
+
+        <div class="row py-2">
+            <div class="col-4">个性域名</div>
+            <div class="col-8">{{ app.request.schemeAndHttpHost }}/profile/<span
+                        class="font-weight-bold">{{ user.username }}</span></div>
         </div>
 
         <div class="row py-2">
@@ -18,8 +30,13 @@
         </div>
 
         <div class="row py-2">
-            <div class="col-4">登录密码</div>
-            <div class="col-8"><a href="{{ path('account_edit_password') }}">修改密码</a></div>
+            <div class="col-4">主题</div>
+            <div class="col-8">{{ user.numTopics }}</div>
+        </div>
+
+        <div class="row py-2">
+            <div class="col-4">回复</div>
+            <div class="col-8">{{ user.numComments }}</div>
         </div>
     </div>
 

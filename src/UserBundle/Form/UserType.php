@@ -21,7 +21,8 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => '用户名'
+                'label' => '用户名',
+                'attr'  => ['autofocus' => true]
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => '密码'

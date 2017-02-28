@@ -24,26 +24,28 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                            <ul class="navbar-nav mr-auto">
+                            <ul class="navbar-nav mx-sm-4">
                                 <li class="nav-item">
-                                    <a class="nav-link font-weight-bold" href="{{ path('homepage') }}"><i
-                                                class="fa fa-home"></i> 首页</a>
+                                    <a class="nav-link" href="{{ path('homepage') }}">首页</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link font-weight-bold" href="{{ path('group_index') }}"><i
-                                                class="fa fa-comments"></i> 群组</a>
+                                    <a class="nav-link" href="{{ path('group_index') }}">群组</a>
                                 </li>
                             </ul>
 
-                            <form class="form-inline my-2 my-lg-0 mr-3">
-                                <input class="form-control mr-sm-1" size="30" type="text" placeholder="搜索话题">
+                            <form class="navbar-search form-inline ml-sm-4 mr-auto">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="搜索话题">
+                                    <button class="btn btn-search" type="submit">搜索
+                                    </button>
+                                </div>
                             </form>
 
                             <ul class="navbar-nav">
                                 {% if app.user %}
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link font-weight-bold dropdown-toggle"
+                                        <a class="nav-link dropdown-toggle"
                                            href="{{ path('account_index') }}"
                                            data-toggle="dropdown">
                                             {{ app.user.username }}
@@ -56,7 +58,7 @@
                                     </li>
                                 {% else %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('user_register') }}">注册</a>
+                                        <a class="nav-link" href="{{ path('user_register') }}">没有账号？立即注册</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ path('security_login') }}">登录</a>

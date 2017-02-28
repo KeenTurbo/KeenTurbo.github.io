@@ -11,7 +11,7 @@
         <div class="topic">
             <div class="message">
                 <div class="author">
-                    <a href="">{{ topic.user.username }}</a> <span
+                    <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.username }}</a> <span
                             class="since">发布于 {{ topic.createdAt | date('Y-m-d H:i:s') }}</span>
                 </div>
                 <div class="actions">
@@ -39,7 +39,7 @@
                 <div class="comment">
                     <div class="message">
                         <div class="author">
-                            <a href="">{{ comment.user.username }}</a> <span
+                            <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.username }}</a> <span
                                     class="since">{{ comment.createdAt | date('m-d H:i:s') }}</span>
                         </div>
                         <div class="actions">

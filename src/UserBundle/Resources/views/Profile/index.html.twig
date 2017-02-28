@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block title user.username %}
+
+{% block main %}
+
+    <div class="section">
+        <h5 class="section-header">{{ user.username }}</h5>
+
+        <div class="row py-2">
+            <div class="col-4">用户名</div>
+            <div class="col-8">{{ user.username }}</div>
+        </div>
+
+        <div class="row py-2">
+            <div class="col-4">昵称</div>
+            <div class="col-8">{{ user.name | default('未设置') }}</div>
+        </div>
+
+        <div class="row py-2">
+            <div class="col-4">主题</div>
+            <div class="col-8">{{ user.numTopics }}</div>
+        </div>
+
+        <div class="row py-2">
+            <div class="col-4">回复 </div>
+            <div class="col-8">{{ user.numComments }}</div>
+        </div>
+    </div>
+
+{% endblock %}
