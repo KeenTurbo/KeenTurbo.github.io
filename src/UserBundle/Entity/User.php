@@ -35,6 +35,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank(message="请输入用户名")
      * @Assert\Length(min="3", minMessage="用户名长度不能少于 {{ limit }} 个字符", max="20", maxMessage="用户名长度不能大于 {{ limit }} 个字符")
+     * @Assert\Regex(pattern="/^[a-z0-9][a-z0-9_]+[a-z0-9]$/i", message="用户名只能包含字母、数字、下划线，但不能以下划线开头和结尾")
      */
     private $username;
 
