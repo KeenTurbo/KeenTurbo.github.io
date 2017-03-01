@@ -8,7 +8,7 @@
 
         <h5 class="section-header">
             {{ group.name }}
-            <a class="btn btn-outline-primary btn-sm pull-right" href="{{ path('topic_new', {'slug': group.slug}) }}">发表主题</a>
+            <a class="btn btn-primary btn-sm pull-right" href="{{ path('topic_new', {'slug': group.slug}) }}">发表主题</a>
         </h5>
 
         <table class="table topics">
@@ -27,11 +27,6 @@
 
 {% block sidebar %}
 
-    <div class="card">
-        <div class="card-header">header</div>
-        <div class="card-block">
-            text
-        </div>
-    </div>
+    {{ include('GroupBundle:Group:recommend.html.twig') }}
 
 {% endblock %}

@@ -77,7 +77,7 @@
 
         <div class="post">
             <h5 class="mb-4">
-                留下回复
+                回复主题
             </h5>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'comment_id': app.request.get('comment_id') })) }}
@@ -96,10 +96,20 @@
 
 {% block sidebar %}
 
-    <div class="card">
-        <div class="card-block">
-            返回<a href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
-        </div>
+    <div class="section">
+        <h5 class="section-header">最新主题</h5>
+
+        <ul class="list-unstyled">
+            {% for topic in latestTopics %}
+                <li class="my-2"><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></li>
+            {% endfor %}
+        </ul>
     </div>
+
+    {{ include('GroupBundle:Group:recommend.html.twig') }}
+
+    <hr />
+
+    返回<a href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
 
 {% endblock %}

@@ -8,6 +8,7 @@ use GroupBundle\Entity\Topic;
 use GroupBundle\Events;
 use GroupBundle\Form\TopicType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -108,11 +109,16 @@ class TopicController extends Controller
      */
     public function showAction(Topic $topic)
     {
-        $comments = $this->getDoctrine()->getRepository(Comment::class)->findLatestByTopic($topic);
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $comments = $entityManager->getRepository(Comment::class)->findLatestByTopic($topic);
+
+        $latestTopics = $entityManager->getRepository(Topic::class)->findBy(['group' => $topic->getGroup()], ['createdAt' => 'DESC'], 10);
 
         return $this->render('GroupBundle:Topic:show.html.twig', [
-            'topic'    => $topic,
-            'comments' => $comments
+            'topic'        => $topic,
+            'comments'     => $comments,
+            'latestTopics' => $latestTopics
         ]);
     }
 }
