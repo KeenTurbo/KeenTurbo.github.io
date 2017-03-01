@@ -28,7 +28,7 @@
                                     <a class="nav-link" href="{{ path('homepage') }}">首页</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('group_index') }}">群组</a>
+                                    <a class="nav-link" href="{{ path('group_index') }}">小组</a>
                                 </li>
                             </ul>
 
@@ -45,12 +45,12 @@
 
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle"
-                                           href="{{ path('account_index') }}"
+                                           href="{{ path('settings_index') }}"
                                            data-toggle="dropdown">
                                             {{ app.user.username }}
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ path('account_index') }}">我的账号</a>
+                                            <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
                                         </div>
@@ -83,22 +83,22 @@
             {% endblock %}
         </div>
         {% block footer %}
-            <footer>
-                <div class="container py-3">
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="mb-0 text-muted">&copy; 2016 长沙之家 版权所有</p>
-                        </div>
-                        <div class="col-6">
-                            <ul class="mb-0 list-inline pull-right">
-                                <li class="list-inline-item"><a href="">关于长沙之家</a></li>
-                                <li class="list-inline-item"><a href="">联系我们</a></li>
-                                <li class="list-inline-item"><a href="">服务条款</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            {#<footer>#}
+                {#<div class="container py-3">#}
+                    {#<div class="row">#}
+                        {#<div class="col-6">#}
+                            {#<p class="mb-0 text-muted">&copy; 2016 长沙之家 版权所有</p>#}
+                        {#</div>#}
+                        {#<div class="col-6">#}
+                            {#<ul class="mb-0 list-inline pull-right">#}
+                                {#<li class="list-inline-item"><a href="">关于长沙之家</a></li>#}
+                                {#<li class="list-inline-item"><a href="">联系我们</a></li>#}
+                                {#<li class="list-inline-item"><a href="">服务条款</a></li>#}
+                            {#</ul>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</footer>#}
         {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>

@@ -12,10 +12,10 @@ use UserBundle\Form\ChangePasswordType;
 /**
  * @author Wenming Tang <wenming@cshome.com>
  */
-class AccountController extends Controller
+class SettingsController extends Controller
 {
     /**
-     * @Route("/account", name="account_index")
+     * @Route("/settings", name="settings_index")
      * @Method("GET")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -29,11 +29,11 @@ class AccountController extends Controller
     }
 
     /**
-     * @Route("/account/edit-password", name="account_edit_password")
+     * @Route("/settings/password", name="settings_password")
      * @Method({"GET", "POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
-    public function editPasswordAction(Request $request)
+    public function passwordAction(Request $request)
     {
         $user = $this->getUser();
 
@@ -52,7 +52,7 @@ class AccountController extends Controller
 
             $this->addFlash('success', '密码已更新');
 
-            return $this->redirectToRoute('account_index');
+            return $this->redirectToRoute('settings_index');
         }
 
         return $this->render('UserBundle:Account:edit_password.html.twig', [
