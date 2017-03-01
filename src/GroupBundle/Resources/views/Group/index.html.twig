@@ -11,7 +11,7 @@
         <table class="table topics">
             {% for topic in topics %}
                 <tr class="topic">
-                    <td class="title"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
+                    <td class="title"><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
                     <td class="comments text-center text-muted">{{ topic.numComments }}回复</td>
                     <td class="created-at text-center text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
                     <td class="group text-right"><a

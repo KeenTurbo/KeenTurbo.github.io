@@ -31,8 +31,8 @@ class CommentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('group_can_edit_topic_comment', [$this, 'canEditComment']),
-            new \Twig_SimpleFunction('group_can_delete_topic_comment', [$this, 'canDeleteComment'])
+            new \Twig_SimpleFunction('can_edit_topic_comment', [$this, 'canEditComment']),
+            new \Twig_SimpleFunction('can_delete_topic_comment', [$this, 'canDeleteComment'])
         ];
     }
 

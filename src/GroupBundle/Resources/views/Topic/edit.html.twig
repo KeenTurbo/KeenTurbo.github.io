@@ -12,7 +12,7 @@
         {{ form_widget(form) }}
 
         <div class="form-group text-right">
-            <a href="{{ path('group_topic_show', {'id': topic.id}) }}" class="text-muted mr-2">取消编辑</a>
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="text-muted mr-2">取消编辑</a>
             <button type="submit" class="btn btn-primary">保存</button>
         </div>
         {{ form_end(form) }}

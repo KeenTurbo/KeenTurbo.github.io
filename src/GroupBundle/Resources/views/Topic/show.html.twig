@@ -17,11 +17,11 @@
                 </div>
                 <div class="actions">
                     <a class="reply" href="#comment">回复</a>
-                    {% if group_can_edit_topic(topic) %}
-                        <a class="edit" href="{{ path('group_topic_edit', {'id': topic.id}) }}">编辑</a>
+                    {% if can_edit_topic(topic) %}
+                        <a class="edit" href="{{ path('topic_edit', {'id': topic.id}) }}">编辑</a>
                     {% endif %}
-                    {% if group_can_delete_topic(topic) %}
-                        <a class="delete" href="{{ path('group_topic_delete', {'id': topic.id}) }}"
+                    {% if can_delete_topic(topic) %}
+                        <a class="delete" href="{{ path('topic_delete', {'id': topic.id}) }}"
                            onclick="return confirm('确认删除该主题吗？')">删除</a>
                     {% endif %}
                 </div>
@@ -44,15 +44,15 @@
                             </div>
                             <div class="actions">
                                 <a class="reply"
-                                   href="{{ path('group_topic_show', {'id': comment.topic.id, 'comment_id': comment.id}) }}#comment">回复</a>
+                                   href="{{ path('topic_show', {'id': comment.topic.id, 'comment_id': comment.id}) }}#comment">回复</a>
 
-                                {% if group_can_edit_topic_comment(comment) %}
+                                {% if can_edit_topic_comment(comment) %}
                                     <a class="edit"
-                                       href="{{ path('group_topic_comment_edit', {'id': comment.id}) }}">编辑</a>
+                                       href="{{ path('topic_comment_edit', {'id': comment.id}) }}">编辑</a>
                                 {% endif %}
-                                {% if group_can_delete_topic_comment(comment) %}
+                                {% if can_delete_topic_comment(comment) %}
                                     <a class="delete"
-                                       href="{{ path('group_topic_comment_delete', {'id': comment.id}) }}"
+                                       href="{{ path('topic_comment_delete', {'id': comment.id}) }}"
                                        onclick="return confirm('确认删除该回复吗？')">删除</a>
                                 {% endif %}
                             </div>

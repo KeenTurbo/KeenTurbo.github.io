@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TopicController extends Controller
 {
     /**
-     * @Route("/group/{slug}/new_topic", name="group_topic_new")
+     * @Route("/group/{slug}/new_topic", name="topic_new")
      * @Method({"GET", "POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -44,7 +44,7 @@ class TopicController extends Controller
 
             $this->get('event_dispatcher')->dispatch(Events::TOPIC_CREATED, $event);
 
-            return $this->redirectToRoute('group_topic_show', ['id' => $topic->getId()]);
+            return $this->redirectToRoute('topic_show', ['id' => $topic->getId()]);
         }
 
         return $this->render('GroupBundle:Topic:new.html.twig', [
@@ -54,7 +54,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/group/topic/{id}/edit", name="group_topic_edit", requirements={"id": "\d+"})
+     * @Route("/group/topic/{id}/edit", name="topic_edit", requirements={"id": "\d+"})
      * @Method({"GET", "POST"})
      * @Security("is_granted('edit', topic)")
      */
@@ -72,7 +72,7 @@ class TopicController extends Controller
             $entityManager->persist($topic);
             $entityManager->flush();
 
-            return $this->redirectToRoute('group_topic_show', ['id' => $topic->getId()]);
+            return $this->redirectToRoute('topic_show', ['id' => $topic->getId()]);
         }
 
         return $this->render('GroupBundle:Topic:edit.html.twig', [
@@ -82,7 +82,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/group/topic/{id}/delete", name="group_topic_delete", requirements={"id": "\d+"})
+     * @Route("/group/topic/{id}/delete", name="topic_delete", requirements={"id": "\d+"})
      * @Method("GET")
      * @Security("is_granted('delete', topic)")
      */
@@ -103,7 +103,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/group/topic/{id}", name="group_topic_show", requirements={"id": "\d+"})
+     * @Route("/group/topic/{id}", name="topic_show", requirements={"id": "\d+"})
      * @Method("GET")
      */
     public function showAction(Topic $topic)

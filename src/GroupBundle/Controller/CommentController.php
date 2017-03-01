@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends Controller
 {
     /**
-     * @Route("/group/topic/{id}/comment", name="group_topic_comment_new")
+     * @Route("/group/topic/{id}/comment", name="topic_comment_new")
      * @Method("POST")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -54,7 +54,7 @@ class CommentController extends Controller
 
             $this->get('event_dispatcher')->dispatch(Events::COMMENT_CREATED, $event);
 
-            return $this->redirectToRoute('group_topic_show', ['id' => $topic->getId(), '_fragment' => 'comment']);
+            return $this->redirectToRoute('topic_show', ['id' => $topic->getId(), '_fragment' => 'comment']);
         }
 
         return $this->render('GroupBundle:Comment:new.html.twig', [
@@ -65,7 +65,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/group/topic/comment/{id}/edit", name="group_topic_comment_edit")
+     * @Route("/group/topic/comment/{id}/edit", name="topic_comment_edit")
      * @Method({"GET", "POST"})
      * @Security("is_granted('edit', comment)")
      */
@@ -83,7 +83,7 @@ class CommentController extends Controller
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('group_topic_show', ['id' => $comment->getTopic()->getId()]);
+            return $this->redirectToRoute('topic_show', ['id' => $comment->getTopic()->getId()]);
         }
 
         return $this->render('GroupBundle:Comment:edit.html.twig', [
@@ -93,7 +93,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/group/topic/comment/{id}/delete", name="group_topic_comment_delete")
+     * @Route("/group/topic/comment/{id}/delete", name="topic_comment_delete")
      * @Method("GET")
      * @Security("is_granted('delete', comment)")
      */
@@ -109,7 +109,7 @@ class CommentController extends Controller
 
         $this->get('event_dispatcher')->dispatch(Events::COMMENT_DELETED, $event);
 
-        return $this->redirectToRoute('group_topic_show', ['id' => $comment->getTopic()->getId()]);
+        return $this->redirectToRoute('topic_show', ['id' => $comment->getTopic()->getId()]);
     }
 
     /**

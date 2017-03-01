@@ -8,13 +8,13 @@
 
         <h5 class="section-header">
             {{ group.name }}
-            <a class="btn btn-outline-primary btn-sm pull-right" href="{{ path('group_topic_new', {'slug': group.slug}) }}">发表主题</a>
+            <a class="btn btn-outline-primary btn-sm pull-right" href="{{ path('topic_new', {'slug': group.slug}) }}">发表主题</a>
         </h5>
 
         <table class="table topics">
             {% for topic in topics %}
                 <tr class="topic">
-                    <td class="title"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
+                    <td class="title"><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
                     <td class="comments text-center text-muted">{{ topic.numComments }}回复</td>
                     <td class="created-at text-center text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
                     <td class="author text-right"><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.username }}</a></td>
