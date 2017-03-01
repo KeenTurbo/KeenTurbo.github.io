@@ -29,6 +29,13 @@ class CommentController extends Controller
 
         $form->handleRequest($request);
 
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $parent = null;
+        if (null !== $parentId = $form->get('parent_id')->getData()) {
+            $parent = $entityManager->getRepository(Comment::class)->find($parentId);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var Comment $comment */
@@ -36,7 +43,10 @@ class CommentController extends Controller
             $comment->setTopic($topic);
             $comment->setUser($this->getUser());
 
-            $entityManager = $this->getDoctrine()->getManager();
+            if (null !== $parent) {
+                $comment->setParent($parent);
+            }
+
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -48,8 +58,9 @@ class CommentController extends Controller
         }
 
         return $this->render('GroupBundle:Comment:new.html.twig', [
-            'topic' => $topic,
-            'form'  => $form->createView()
+            'topic'  => $topic,
+            'parent' => $parent,
+            'form'   => $form->createView()
         ]);
     }
 
@@ -106,13 +117,21 @@ class CommentController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newFormAction(Topic $topic)
+    public function newFormAction(Request $request, Topic $topic)
     {
         $form = $this->createForm(CommentType::class);
 
+        $parent = null;
+        if (null !== $parentId = $request->get('comment_id')) {
+            if (null !== $parent = $this->getDoctrine()->getRepository(Comment::class)->find($parentId)) {
+                $form->get('parent_id')->setData($parent->getId());
+            }
+        }
+
         return $this->render('GroupBundle:Comment:new_form.html.twig', [
-            'topic' => $topic,
-            'form'  => $form->createView()
+            'topic'  => $topic,
+            'parent' => $parent,
+            'form'   => $form->createView()
         ]);
     }
 }

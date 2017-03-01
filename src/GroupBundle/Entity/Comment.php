@@ -54,6 +54,13 @@ class Comment
     private $deletedAt;
 
     /**
+     * @var Comment
+     *
+     * @ORM\ManyToOne(targetEntity="GroupBundle\Entity\Comment")
+     */
+    private $parent;
+
+    /**
      * @var Topic
      *
      * @ORM\ManyToOne(targetEntity="GroupBundle\Entity\Topic")
@@ -157,6 +164,26 @@ class Comment
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Comment
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Comment $parent
+     *
+     * @return self
+     */
+    public function setParent(Comment $parent)
+    {
+        $this->parent = $parent;
 
         return $this;
     }

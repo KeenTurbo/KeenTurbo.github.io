@@ -1,4 +1,11 @@
+{% if parent %}
+    <blockquote class="quote">
+        <a href="{{ path('user_profile', {'username': parent.user.username }) }}">{{ parent.user.username }}</a>: {{ parent.body }}
+    </blockquote>
+{% endif %}
+
 {{ form_start(form, { method: 'POST', action: path('group_topic_comment_new', {'id': topic.id}), 'attr': {'novalidate': 'novalidate'} }) }}
+
 {{ form_widget(form) }}
 
 <button class="btn btn-primary" type="submit">发表回复</button>

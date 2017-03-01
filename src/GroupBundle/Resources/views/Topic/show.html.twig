@@ -11,20 +11,18 @@
         <div class="topic">
             <div class="message">
                 <div class="author">
-                    <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.username }}</a> <span
+                    <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.username }}</a>
+                    <span
                             class="since">发布于 {{ topic.createdAt | date('Y-m-d H:i:s') }}</span>
                 </div>
                 <div class="actions">
-                    <a class="reply" href="#comment"><i class="fa fa-reply"></i> 回复</a>
+                    <a class="reply" href="#comment">回复</a>
                     {% if group_can_edit_topic(topic) %}
-                        <a class="edit" href="{{ path('group_topic_edit', {'id': topic.id}) }}"><i
-                                    class="fa fa-edit"></i> 编辑</a>
+                        <a class="edit" href="{{ path('group_topic_edit', {'id': topic.id}) }}">编辑</a>
                     {% endif %}
                     {% if group_can_delete_topic(topic) %}
                         <a class="delete" href="{{ path('group_topic_delete', {'id': topic.id}) }}"
-                           onclick="return confirm('确认删除该主题吗？')"><i
-                                    class="fa fa-remove"></i>
-                            删除</a>
+                           onclick="return confirm('确认删除该主题吗？')">删除</a>
                     {% endif %}
                 </div>
                 <div class="message-text">
@@ -33,41 +31,56 @@
             </div>
         </div>
 
-        <div class="comments">
-            <h5 class="comment-counts">{{ topic.numComments }} 个回复</h5>
-            {% for comment in comments %}
-                <div class="comment">
-                    <div class="message">
-                        <div class="author">
-                            <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.username }}</a> <span
-                                    class="since">{{ comment.createdAt | date('m-d H:i:s') }}</span>
-                        </div>
-                        <div class="actions">
-                            <a class="reply" href="#comment"><i class="fa fa-reply"></i> 回复</a>
+        {% if topic.numComments > 0 %}
+            <div class="comments">
+                <h5 class="comment-counts">{{ topic.numComments }} 个回复</h5>
+                {% for comment in comments %}
+                    <div class="comment">
+                        <div class="message">
+                            <div class="author">
+                                <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.username }}</a>
+                                <span
+                                        class="since">{{ comment.createdAt | date('m-d H:i:s') }}</span>
+                            </div>
+                            <div class="actions">
+                                <a class="reply"
+                                   href="{{ path('group_topic_show', {'id': comment.topic.id, 'comment_id': comment.id}) }}#comment">回复</a>
 
-                            {% if group_can_edit_topic_comment(comment) %}
-                                <a class="edit" href="{{ path('group_topic_comment_edit', {'id': comment.id}) }}"><i
-                                            class="fa fa-edit"></i> 编辑</a>
-                            {% endif %}
-                            {% if group_can_delete_topic_comment(comment) %}
-                                <a class="delete" href="{{ path('group_topic_comment_delete', {'id': comment.id}) }}"
-                                   onclick="return confirm('确认删除该回复吗？')"><i
-                                            class="fa fa-remove"></i>
-                                    删除</a>
-                            {% endif %}
-                        </div>
+                                {% if group_can_edit_topic_comment(comment) %}
+                                    <a class="edit"
+                                       href="{{ path('group_topic_comment_edit', {'id': comment.id}) }}">编辑</a>
+                                {% endif %}
+                                {% if group_can_delete_topic_comment(comment) %}
+                                    <a class="delete"
+                                       href="{{ path('group_topic_comment_delete', {'id': comment.id}) }}"
+                                       onclick="return confirm('确认删除该回复吗？')">删除</a>
+                                {% endif %}
+                            </div>
 
-                        <div class="message-text">
-                            {{ comment.body | nl2br }}
+                            <div class="message-text">
+
+                                {% if comment.parent %}
+
+                                    <blockquote class="quote">
+                                        <a href="{{ path('user_profile', {'username': comment.parent.user.username }) }}">{{ comment.parent.user.username }}</a>: {{ comment.parent.body }}
+                                    </blockquote>
+
+                                {% endif %}
+
+                                {{ comment.body | nl2br }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-        <div class="post" id="comment">
+        <div class="post">
+            <h5 class="mb-4">
+                留下回复
+            </h5>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
+                {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'comment_id': app.request.get('comment_id') })) }}
             {% else %}
                 <div class="card py-5">
                     <div class="card-block text-center text-muted">

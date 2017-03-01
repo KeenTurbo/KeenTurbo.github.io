@@ -149,8 +149,19 @@ a, a:hover {
     margin-right: 20px;
 }
 
-.group-discussion-topic .comments {
-    margin: 20px 0;
+.group-discussion-topic .message-text .quote {
+    border-left: 2px solid lightgrey;
+    padding: 0.4rem 0 0.4rem 1rem;
+}
+
+.group-discussion-topic .post .quote {
+    background: #f6f6f6;
+    padding: 0.4rem 0 0.4rem 1rem;
+}
+
+.group-discussion-topic .comments,
+.group-discussion-topic .post {
+    margin: 20px 0 0;
 }
 
 .group-discussion-topic .comments .comment-counts {
