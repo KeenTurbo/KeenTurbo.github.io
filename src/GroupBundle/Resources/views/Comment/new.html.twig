@@ -6,9 +6,7 @@
 
     <div class="group-discussion-topic">
         <div class="section">
-            <h5 class="section-header"><a href="{{ path('group_topic_show', {'id': topic.id}) }}">{{ topic.title }}</a>
-                /
-                发表回复</h5>
+            <h5 class="section-header">发表回复</h5>
 
             <div class="post">
                 {{ include('GroupBundle:Comment:new_form.html.twig') }}

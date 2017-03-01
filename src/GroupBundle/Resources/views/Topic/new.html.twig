@@ -6,17 +6,17 @@
 
     <div class="section">
 
-        <h5 class="section-header"><a href="{{ path('group_topic', {'slug': group.slug}) }}">{{ group.name }}</a> / 发表新主题</h5>
+        <h5 class="section-header">发表新主题</h5>
 
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_widget(form) }}
 
-        <button type="submit" class="btn btn-primary">发起主题</button>
-        {{ form_end(form) }}
+        <div class="form-group text-right">
+            <a href="{{ path('group_topic', {'slug': group.slug}) }}" class="text-muted mr-2">返回{{ group.name }}</a>
 
-        <div class="py-2">
-            或 <a href="{{ path('group_topic', {'slug': group.slug}) }}">回到{{ group.name }}</a>
+            <button type="submit" class="btn btn-primary">发起主题</button>
         </div>
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}

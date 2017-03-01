@@ -1,5 +1,8 @@
 {% if parent %}
     <blockquote class="quote">
+        <a class="close mr-2 action-cancel-comment">
+            <span>&times;</span>
+        </a>
         <a href="{{ path('user_profile', {'username': parent.user.username }) }}">{{ parent.user.username }}</a>: {{ parent.body }}
     </blockquote>
 {% endif %}
@@ -8,5 +11,7 @@
 
 {{ form_widget(form) }}
 
-<button class="btn btn-primary" type="submit">发表回复</button>
+<div class="form-group text-right">
+    <button class="btn btn-primary" type="submit">回复</button>
+</div>
 {{ form_end(form) }}

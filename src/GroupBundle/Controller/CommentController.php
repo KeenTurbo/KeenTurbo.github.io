@@ -33,7 +33,7 @@ class CommentController extends Controller
 
         $parent = null;
         if (null !== $parentId = $form->get('parent_id')->getData()) {
-            $parent = $entityManager->getRepository(Comment::class)->find($parentId);
+            $parent = $entityManager->getRepository(Comment::class)->findOneBy(['id' => $parentId, 'topic' => $topic]);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,7 +123,7 @@ class CommentController extends Controller
 
         $parent = null;
         if (null !== $parentId = $request->get('comment_id')) {
-            if (null !== $parent = $this->getDoctrine()->getRepository(Comment::class)->find($parentId)) {
+            if (null !== $parent = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentId, 'topic' => $topic])) {
                 $form->get('parent_id')->setData($parent->getId());
             }
         }
