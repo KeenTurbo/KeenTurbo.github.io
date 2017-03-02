@@ -16,7 +16,7 @@ class ProfileController extends Controller
      * @Route("/profile/{username}", name="user_profile")
      * @Method("GET")
      */
-    public function indexAction(User $user)
+    public function showAction(User $user)
     {
         return $this->render('UserBundle:Profile:index.html.twig', [
             'user' => $user

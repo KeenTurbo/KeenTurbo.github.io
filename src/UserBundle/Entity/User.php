@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="cshome_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
- * @UniqueEntity("username", message="用户名不可用")
+ * @UniqueEntity("username", message="用户名不可用", groups={"registration"})
  */
 class User implements UserInterface
 {
@@ -33,9 +33,22 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="请输入用户名")
-     * @Assert\Length(min="3", minMessage="用户名长度不能少于 {{ limit }} 个字符", max="20", maxMessage="用户名长度不能大于 {{ limit }} 个字符")
-     * @Assert\Regex(pattern="/^[a-z0-9][a-z0-9_]+[a-z0-9]$/i", message="用户名只能包含字母、数字、下划线，但不能以下划线开头和结尾")
+     * @Assert\NotBlank(
+     *     message="请输入用户名",
+     *     groups={"registration"}
+     * )
+     * @Assert\Length(
+     *     min="3",
+     *     minMessage="用户名长度不能少于 {{ limit }} 个字符",
+     *     max="20",
+     *     maxMessage="用户名长度不能大于 {{ limit }} 个字符",
+     *     groups={"registration"}
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z0-9][a-z0-9_]+[a-z0-9]$/i",
+     *     message="用户名只能包含字母、数字、下划线，但不能以下划线开头和结尾",
+     *     groups={"registration"}
+     * )
      */
     private $username;
 
@@ -49,8 +62,15 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="请输入密码")
-     * @Assert\Length(min="5", minMessage="密码长度不能少于 {{ limit }} 个字符")
+     * @Assert\NotBlank(
+     *     message="请输入密码",
+     *     groups={"registration", "change_password"}
+     * )
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="密码长度不能少于 {{ limit }} 个字符",
+     *     groups={"registration", "change_password"}
+     * )
      */
     private $plainPassword;
 
@@ -65,6 +85,17 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(
+     *     message="名字不能为空",
+     *     groups={"profile_edit"}
+     * )
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="名字长度不能少于 {{ limit }} 个字符",
+     *     max="20",
+     *     maxMessage="名字长度不能大于 {{ limit }} 个字符",
+     *     groups={"profile_edit"}
+     * )
      */
     private $name;
 

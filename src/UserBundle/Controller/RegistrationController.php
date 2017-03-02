@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Events;
-use UserBundle\Form\UserType;
+use UserBundle\Form\RegistrationType;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
@@ -22,13 +22,15 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(RegistrationType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $form->getData();
+
+            $user->setName($user->getUsername());
 
             $encodedPassword = $this->get('security.password_encoder')->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($encodedPassword);

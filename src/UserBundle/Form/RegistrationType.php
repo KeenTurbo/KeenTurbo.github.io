@@ -4,30 +4,29 @@ namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use UserBundle\Entity\User;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
  */
-class ChangePasswordType extends AbstractType
+class RegistrationType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('current_password', PasswordType::class, [
-            'label'       => '旧密码',
-            'mapped'      => false,
-            'constraints' => new UserPassword([
-                'message' => '旧密码不正确'
+        $builder
+            ->add('username', TextType::class, [
+                'label' => '用户名',
+                'attr'  => ['autofocus' => true]
             ])
-        ])->add('plainPassword', PasswordType::class, [
-            'label' => '新密码'
-        ]);
+            ->add('plainPassword', PasswordType::class, [
+                'label' => '密码'
+            ]);
     }
 
     /**
@@ -37,7 +36,15 @@ class ChangePasswordType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class'        => User::class,
-            'validation_groups' => ['change_password']
+            'validation_groups' => ['registration']
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'user';
     }
 }
