@@ -1,4 +1,10 @@
 services:
-#    app.example:
-#        class: AppBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    app.html_purifier:
+        class: AppBundle\Utils\HtmlPurifier
+
+    app.twig.html_purifier_extension:
+        class: AppBundle\Twig\HtmlPurifierExtension
+        arguments: ['@app.html_purifier']
+        public: false
+        tags:
+            - { name: twig.extension }

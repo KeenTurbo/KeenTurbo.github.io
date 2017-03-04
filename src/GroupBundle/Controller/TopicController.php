@@ -8,7 +8,6 @@ use GroupBundle\Entity\Topic;
 use GroupBundle\Events;
 use GroupBundle\Form\TopicType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -21,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TopicController extends Controller
 {
     /**
-     * @Route("/group/{slug}/new_topic", name="topic_new")
+     * @Route("/group/{slug}/new", name="topic_new")
      * @Method({"GET", "POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -55,7 +54,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/group/topic/{id}/edit", name="topic_edit", requirements={"id": "\d+"})
+     * @Route("/topic/{id}/edit", name="topic_edit", requirements={"id": "\d+"})
      * @Method({"GET", "POST"})
      * @Security("is_granted('edit', topic)")
      */
@@ -83,7 +82,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/group/topic/{id}/delete", name="topic_delete", requirements={"id": "\d+"})
+     * @Route("/topic/{id}/delete", name="topic_delete", requirements={"id": "\d+"})
      * @Method("GET")
      * @Security("is_granted('delete', topic)")
      */
@@ -104,7 +103,7 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/group/topic/{id}", name="topic_show", requirements={"id": "\d+"})
+     * @Route("/topic/{id}", name="topic_show", requirements={"id": "\d+"})
      * @Method("GET")
      */
     public function showAction(Topic $topic)

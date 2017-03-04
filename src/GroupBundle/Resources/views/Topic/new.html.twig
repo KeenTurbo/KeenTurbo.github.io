@@ -20,3 +20,17 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+
+    <script>
+        window.onload = function () {
+            CKEDITOR.replace('topic_body', {
+                customConfig: '{{ asset('js/ckeditor-config.js') }}'
+            });
+        };
+    </script>
+
+{% endblock %}

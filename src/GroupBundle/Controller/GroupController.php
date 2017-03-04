@@ -14,21 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class GroupController extends Controller
 {
     /**
-     * @Route("/group", name="group_index")
-     * @Route("/", name="homepage")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findLatest();
-
-        return $this->render('GroupBundle:Group:index.html.twig', [
-            'topics' => $topics
-        ]);
-    }
-
-    /**
      * @Route("/group/{slug}", name="group_topic")
      * @Method("GET")
      */

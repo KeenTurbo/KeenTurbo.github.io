@@ -29,14 +29,14 @@ services:
         tags:
             - { name: security.voter }
 
-    group.topic_twig_extension:
+    group.twig.topic_extension:
         class: GroupBundle\Twig\TopicExtension
         arguments: ['@security.authorization_checker']
         public: false
         tags:
             - { name: twig.extension }
 
-    group.comment_twig_extension:
+    group.twig.comment_extension:
         class: GroupBundle\Twig\CommentExtension
         arguments: ['@security.authorization_checker']
         public: false

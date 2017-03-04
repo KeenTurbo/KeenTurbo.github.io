@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends Controller
 {
     /**
-     * @Route("/group/topic/{id}/comment", name="topic_comment_new")
+     * @Route("/topic/{id}/comment", name="topic_comment_new")
      * @Method("POST")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -65,7 +65,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/group/topic/comment/{id}/edit", name="topic_comment_edit")
+     * @Route("/comment/{id}/edit", name="topic_comment_edit")
      * @Method({"GET", "POST"})
      * @Security("is_granted('edit', comment)")
      */
@@ -93,7 +93,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/group/topic/comment/{id}/delete", name="topic_comment_delete")
+     * @Route("/comment/{id}/delete", name="topic_comment_delete")
      * @Method("GET")
      * @Security("is_granted('delete', comment)")
      */
