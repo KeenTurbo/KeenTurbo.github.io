@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends Controller
 {
     /**
-     * @Route("/topic/{id}/comment", name="topic_comment_new")
+     * @Route("/topic/{id}/comment", name="comment_new")
      * @Method("POST")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
@@ -65,7 +65,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/comment/{id}/edit", name="topic_comment_edit")
+     * @Route("/comment/{id}/edit", name="comment_edit")
      * @Method({"GET", "POST"})
      * @Security("is_granted('edit', comment)")
      */
@@ -93,7 +93,7 @@ class CommentController extends Controller
     }
 
     /**
-     * @Route("/comment/{id}/delete", name="topic_comment_delete")
+     * @Route("/comment/{id}/delete", name="comment_delete")
      * @Method("GET")
      * @Security("is_granted('delete', comment)")
      */
@@ -122,7 +122,7 @@ class CommentController extends Controller
         $form = $this->createForm(CommentType::class);
 
         $parent = null;
-        if (null !== $parentId = $request->get('comment_id')) {
+        if (null !== $parentId = $request->get('commentId')) {
             if (null !== $parent = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentId, 'topic' => $topic])) {
                 $form->get('parent_id')->setData($parent->getId());
             }

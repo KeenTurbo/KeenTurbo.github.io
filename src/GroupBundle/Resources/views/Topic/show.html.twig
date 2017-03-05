@@ -44,15 +44,15 @@
                             </div>
                             <div class="actions">
                                 <a class="reply"
-                                   href="{{ path('topic_show', {'id': comment.topic.id, 'comment_id': comment.id}) }}#comment">回复</a>
+                                   href="{{ path('topic_show', {'id': comment.topic.id, 'commentId': comment.id}) }}#comment">回复</a>
 
-                                {% if can_edit_topic_comment(comment) %}
+                                {% if can_edit_comment(comment) %}
                                     <a class="edit"
-                                       href="{{ path('topic_comment_edit', {'id': comment.id}) }}">编辑</a>
+                                       href="{{ path('comment_edit', {'id': comment.id}) }}">编辑</a>
                                 {% endif %}
-                                {% if can_delete_topic_comment(comment) %}
+                                {% if can_delete_comment(comment) %}
                                     <a class="delete"
-                                       href="{{ path('topic_comment_delete', {'id': comment.id}) }}"
+                                       href="{{ path('comment_delete', {'id': comment.id}) }}"
                                        onclick="return confirm('确认删除该回复吗？')">删除</a>
                                 {% endif %}
                             </div>
@@ -80,7 +80,7 @@
                 回复主题
             </h5>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'comment_id': app.request.get('comment_id') })) }}
+                {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'commentId': app.request.get('commentId') })) }}
             {% else %}
                 <div class="card py-5">
                     <div class="card-block text-center text-muted">
@@ -110,6 +110,6 @@
 
     <hr />
 
-    返回<a href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
+    返回<a href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
 
 {% endblock %}

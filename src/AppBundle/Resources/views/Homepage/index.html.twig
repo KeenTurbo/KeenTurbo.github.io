@@ -15,7 +15,7 @@
                     <td class="comments text-center text-muted">{{ topic.numComments }}回复</td>
                     <td class="created-at text-center text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
                     <td class="group text-right"><a
-                                href="{{ path('group_topic', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
+                                href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
                     </td>
                 </tr>
             {% endfor %}

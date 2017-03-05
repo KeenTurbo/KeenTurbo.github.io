@@ -99,7 +99,7 @@ class TopicController extends Controller
 
         $this->get('event_dispatcher')->dispatch(Events::TOPIC_DELETED, $event);
 
-        return $this->redirectToRoute('group_topic', ['slug' => $topic->getGroup()->getSlug()]);
+        return $this->redirectToRoute('group_show', ['slug' => $topic->getGroup()->getSlug()]);
     }
 
     /**

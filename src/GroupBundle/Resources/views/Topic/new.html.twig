@@ -12,7 +12,7 @@
         {{ form_widget(form) }}
 
         <div class="form-group text-right">
-            <a href="{{ path('group_topic', {'slug': group.slug}) }}" class="text-muted mr-2">返回{{ group.name }}</a>
+            <a href="{{ path('group_show', {'slug': group.slug}) }}" class="text-muted mr-2">返回{{ group.name }}</a>
 
             <button type="submit" class="btn btn-primary">发起主题</button>
         </div>

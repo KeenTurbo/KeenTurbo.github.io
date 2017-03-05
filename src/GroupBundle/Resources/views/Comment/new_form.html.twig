@@ -7,7 +7,7 @@
     </blockquote>
 {% endif %}
 
-{{ form_start(form, { method: 'POST', action: path('topic_comment_new', {'id': topic.id}), 'attr': {'novalidate': 'novalidate'} }) }}
+{{ form_start(form, { method: 'POST', action: path('comment_new', {'id': topic.id}), 'attr': {'novalidate': 'novalidate'} }) }}
 
 {{ form_widget(form) }}
 

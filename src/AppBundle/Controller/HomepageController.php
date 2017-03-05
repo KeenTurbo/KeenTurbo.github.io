@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use GroupBundle\Entity\Topic;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ class HomepageController extends Controller
     /**
      * @Route("/", name="homepage")
      * @Method("GET")
+     * @Cache(smaxage="10")
      */
     public function indexAction()
     {

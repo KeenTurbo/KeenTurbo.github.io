@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class GroupController extends Controller
 {
     /**
-     * @Route("/group/{slug}", name="group_topic")
+     * @Route("/group/{slug}", name="group_show")
      * @Method("GET")
      */
     public function showAction(Group $group)
