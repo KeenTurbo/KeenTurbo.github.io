@@ -2,24 +2,24 @@
 
 namespace AppBundle\Twig;
 
-use AppBundle\Utils\HtmlPurifier;
+use AppBundle\Utils\HTMLPurifier;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
  */
-class HtmlPurifierExtension extends \Twig_Extension
+class HTMLPurifierExtension extends \Twig_Extension
 {
     /**
-     * @var HtmlPurifier
+     * @var HTMLPurifier
      */
     private $purifier;
 
     /**
-     * HtmlPurifierExtension constructor.
+     * HTMLPurifierExtension constructor.
      *
-     * @param $purifier
+     * @param HTMLPurifier $purifier
      */
-    public function __construct(HtmlPurifier $purifier)
+    public function __construct(HTMLPurifier $purifier)
     {
         $this->purifier = $purifier;
     }

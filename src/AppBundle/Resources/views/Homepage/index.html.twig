@@ -26,6 +26,6 @@
 
 {% block sidebar %}
 
-    {{ include('GroupBundle:Group:recommend.html.twig') }}
+    {{ render(controller('GroupBundle:Group:recommend')) }}
 
 {% endblock %}

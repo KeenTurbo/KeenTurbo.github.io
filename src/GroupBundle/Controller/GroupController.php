@@ -27,4 +27,17 @@ class GroupController extends Controller
             'topics' => $topics
         ]);
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function recommendAction()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $groups = $entityManager->getRepository(Group::class)->findAll();
+
+        return $this->render('GroupBundle:Group:recommend.html.twig', [
+            'groups' => $groups
+        ]);
+    }
 }

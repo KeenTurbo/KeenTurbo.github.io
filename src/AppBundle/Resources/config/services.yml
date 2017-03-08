@@ -1,9 +1,13 @@
 services:
     app.html_purifier:
-        class: AppBundle\Utils\HtmlPurifier
+        class: AppBundle\Utils\HTMLPurifier
+
+    app.markdown:
+        class: AppBundle\Utils\Markdown
+        arguments: ['@app.html_purifier']
 
     app.twig.html_purifier_extension:
-        class: AppBundle\Twig\HtmlPurifierExtension
+        class: AppBundle\Twig\HTMLPurifierExtension
         arguments: ['@app.html_purifier']
         public: false
         tags:

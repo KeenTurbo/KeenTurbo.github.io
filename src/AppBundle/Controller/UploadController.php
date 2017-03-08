@@ -2,9 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use OSS\OssClient;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,11 +25,40 @@ class UploadController extends Controller
     {
         $funcNum = $request->get('CKEditorFuncNum');
 
-        return new Response(sprintf('<script type="text/javascript">
-                                        window.parent.CKEDITOR.tools.callFunction(\'%s\', \'%s\');
-                                     </script>',
-            $funcNum,
-            'https://www.baidu.com/img/bd_logo1.png'
-        ));
+        /** @var UploadedFile $file */
+        $file = $request->files->get('upload');
+
+        try {
+            if (!in_array($file->getMimeType(), ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'])) {
+                throw new \Exception('只能上传.png,.jpg,.gif格式文件');
+            }
+
+            if ($file->getSize() > 20480000) {
+                throw new \Exception('文件大小不能超过 2MB');
+            }
+
+            $filename = sha1(uniqid(rand(), true)) . '.' . $file->getClientOriginalExtension();
+            $url = sprintf('%s/%s_b', $this->getParameter('oss_bucket1_url'), $filename);
+
+            $ossClient = new OssClient($this->getParameter('oss_access_key_id'), $this->getParameter('oss_access_key_secret'), $this->getParameter('oss_end_point'));
+            $ossClient->putObject($this->getParameter('oss_bucket1'), $filename, file_get_contents($file->getRealPath()));
+
+            return new Response(sprintf('
+                <script type="text/javascript">
+                    window.parent.CKEDITOR.tools.callFunction(\'%s\', \'%s\');
+                </script>',
+                $funcNum,
+                $url
+            ));
+
+        } catch (\Exception $e) {
+            return new Response(sprintf('
+                <script type="text/javascript">
+                    window.parent.CKEDITOR.tools.callFunction(\'%s\', null, \'%s\');
+                </script>',
+                $funcNum,
+                $e->getMessage()
+            ));
+        }
     }
 }

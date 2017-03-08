@@ -17,3 +17,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    oss_access_key_id: ~
+    oss_access_key_secret: ~
+    oss_end_point: ~
+    oss_bucket1: ~
+    oss_bucket1_url: ~

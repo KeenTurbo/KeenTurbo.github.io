@@ -1,13 +1,8 @@
 <div class="section">
     <h5 class="section-header">推荐小组</h5>
     <div class="group-list">
-        <a class="btn btn-outline-primary btn-sm">长沙城事</a>
-        <a class="btn btn-outline-primary btn-sm">长沙酒吧</a>
-        <a class="btn btn-outline-primary btn-sm">吃喝玩乐</a>
-        <a class="btn btn-outline-primary btn-sm">长沙租房</a>
-        <a class="btn btn-outline-primary btn-sm">装修那些事儿</a>
-        <a class="btn btn-outline-primary btn-sm">在长沙上学</a>
-        <a class="btn btn-outline-primary btn-sm">长沙找工作</a>
-        <a class="btn btn-outline-primary btn-sm">二手买卖</a>
+        {% for group in groups %}
+            <a class="btn btn-outline-primary btn-sm" href="{{ path('group_show', {'slug': group.slug}) }}">{{ group.name }}</a>
+        {% endfor %}
     </div>
 </div>

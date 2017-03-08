@@ -67,7 +67,7 @@
 
                                 {% endif %}
 
-                                {{ comment.body | nl2br }}
+                                {{ comment.body }}
                             </div>
                         </div>
                     </div>
@@ -106,10 +106,13 @@
         </ul>
     </div>
 
-    {{ include('GroupBundle:Group:recommend.html.twig') }}
+    {{ render(controller('GroupBundle:Group:recommend')) }}
 
     <hr />
 
-    返回<a href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
+    <div class="text-muted">
+        <a class="btn btn-primary btn-sm mr-4" href="{{ path('topic_new', {'slug': topic.group.slug}) }}">发表主题</a>
+        返回<a href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
+    </div>
 
 {% endblock %}
