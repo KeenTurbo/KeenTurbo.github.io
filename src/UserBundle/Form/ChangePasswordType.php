@@ -23,7 +23,8 @@ class ChangePasswordType extends AbstractType
             'label'       => '旧密码',
             'mapped'      => false,
             'constraints' => new UserPassword([
-                'message' => '旧密码不正确'
+                'message' => '旧密码不正确',
+                'groups'  => ['change_password']
             ])
         ])->add('plainPassword', PasswordType::class, [
             'label' => '新密码'
