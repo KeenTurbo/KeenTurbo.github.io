@@ -15,7 +15,7 @@
 
                         {% if error %}
                             <div class="alert alert-danger">
-                                {{ error.message }}
+                                {{ error.message | trans }}
                             </div>
                         {% endif %}
 

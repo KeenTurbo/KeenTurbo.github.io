@@ -27,15 +27,15 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ path('homepage') }}">首页</a></li>
                             </ul>
 
-                            <form class="navbar-search form-inline ml-sm-4 mr-auto">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="搜索主题">
-                                    <button class="btn btn-search" type="submit">搜索
-                                    </button>
-                                </div>
-                            </form>
+                            {#<form class="navbar-search form-inline ml-sm-4 mr-auto" action="javascript:void(0)">#}
+                            {#<div class="input-group">#}
+                            {#<input class="form-control" type="text" disabled placeholder="搜索主题">#}
+                            {#<button class="btn btn-search disabled"  type="submit">搜索#}
+                            {#</button>#}
+                            {#</div>#}
+                            {#</form>#}
 
-                            <ul class="navbar-nav">
+                            <ul class="navbar-nav ml-auto">
                                 {% if app.user %}
 
                                     <li class="nav-item dropdown">
@@ -65,10 +65,11 @@
             </header>
         {% endblock %}
         <div class="container body-container">
+            {{ include('default/_flash_messages.html.twig') }}
+
             {% block body %}
                 <div class="row">
                     <div id="main" class="col-lg-8">
-                        {{ include('default/_flash_messages.html.twig') }}
                         {% block main %}{% endblock %}
                     </div>
                     <div id="sidebar" class="col-lg-4">
@@ -78,22 +79,21 @@
             {% endblock %}
         </div>
         {% block footer %}
-            {#<footer>#}
-            {#<div class="container py-3">#}
-            {#<div class="row">#}
-            {#<div class="col-6">#}
-            {#<p class="mb-0 text-muted">&copy; 2016 长沙之家 版权所有</p>#}
-            {#</div>#}
-            {#<div class="col-6">#}
-            {#<ul class="mb-0 list-inline pull-right">#}
-            {#<li class="list-inline-item"><a href="">关于长沙之家</a></li>#}
-            {#<li class="list-inline-item"><a href="">联系我们</a></li>#}
-            {#<li class="list-inline-item"><a href="">服务条款</a></li>#}
-            {#</ul>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#</footer>#}
+            <div class="container">
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="mb-0 text-muted">&copy; 2016 长沙之家 版权所有</p>
+                        </div>
+                        <div class="col-6">
+                            <ul class="mb-0 list-inline pull-right">
+                                <li class="list-inline-item"><a href="{{ path('contact') }}" class="text-muted">联系我们</a><span class="text-muted ml-2">·</span></li>
+                                <li class="list-inline-item"><a href="{{ path('terms') }}" class="text-muted">服务条款</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>

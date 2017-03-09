@@ -43,6 +43,8 @@ class RegistrationController extends Controller
 
             $this->get('event_dispatcher')->dispatch(Events::USER_CREATED, $event);
 
+            $this->addFlash('success', '你已经成功注册');
+
             return $this->redirect('/');
         }
 

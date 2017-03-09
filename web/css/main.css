@@ -23,6 +23,10 @@ a, a:hover {
     min-height: 500px;
 }
 
+.messages {
+    margin-bottom: 2.5rem;
+}
+
 .navbar {
     border-top: 2px solid #d83b01;
     border-bottom: 1px solid #ddd;
@@ -277,6 +281,7 @@ a, a:hover {
     margin-bottom: 0.8rem;
 }
 
-footer {
+.footer {
     border-top: 1px solid #eee;
+    padding: 1.538rem 0;
 }
