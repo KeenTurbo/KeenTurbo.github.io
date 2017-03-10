@@ -4,14 +4,8 @@
 
 {% block main %}
 
-    <div class="group-discussion-topic">
-        <div class="section">
-            <h5 class="section-header">发表回复</h5>
+    <h5 class="mb-4">发表回复</h5>
 
-            <div class="post">
-                {{ include('GroupBundle:Comment:new_form.html.twig') }}
-            </div>
-        </div>
-    </div>
+    {{ include('GroupBundle:Comment:new_form.html.twig') }}
 
 {% endblock %}

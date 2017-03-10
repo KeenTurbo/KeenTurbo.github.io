@@ -109,6 +109,8 @@ class CommentController extends Controller
 
         $this->get('event_dispatcher')->dispatch(Events::COMMENT_DELETED, $event);
 
+        $this->addFlash('success', '回复已删除');
+
         return $this->redirectToRoute('topic_show', ['id' => $comment->getTopic()->getId()]);
     }
 

@@ -99,6 +99,8 @@ class TopicController extends Controller
 
         $this->get('event_dispatcher')->dispatch(Events::TOPIC_DELETED, $event);
 
+        $this->addFlash('success', '主题已删除');
+
         return $this->redirectToRoute('group_show', ['slug' => $topic->getGroup()->getSlug()]);
     }
 

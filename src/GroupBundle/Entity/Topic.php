@@ -36,7 +36,12 @@ class Topic
      *
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="请输入内容")
-     * @Assert\Length(min="5", max="10000", minMessage="内容至少 {{ limit }} 个字符", maxMessage="内容不能超过 {{ limit }} 个字符")
+     * @Assert\Length(
+     *     min="5",
+     *     max="10000",
+     *     minMessage="内容至少 {{ limit }} 个字符",
+     *     maxMessage="内容不能超过 {{ limit }} 个字符"
+     * )
      */
     private $body;
 

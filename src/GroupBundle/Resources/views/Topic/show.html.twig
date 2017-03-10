@@ -3,101 +3,100 @@
 {% block title topic.title %}
 
 {% block main %}
-    <div class="group-discussion-topic">
-        <div class="discussion-topic-header">
-            <h4>{{ topic.title }}</h4>
-        </div>
 
-        <div class="topic">
-            <div class="message">
-                <div class="author">
-                    <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a>
-                    <span
-                            class="since">发布于 {{ topic.createdAt | date('Y-m-d H:i:s') }}</span>
-                </div>
-                <div class="actions">
-                    <a class="reply" href="#comment">回复</a>
-                    {% if can_edit_topic(topic) %}
-                        <a class="edit" href="{{ path('topic_edit', {'id': topic.id}) }}">编辑</a>
-                    {% endif %}
-                    {% if can_delete_topic(topic) %}
-                        <a class="delete" href="{{ path('topic_delete', {'id': topic.id}) }}"
-                           onclick="return confirm('确认删除该主题吗？')">删除</a>
-                    {% endif %}
-                </div>
-                <div class="message-text">
-                    {{ topic.body | purify }}
-                </div>
+    <article class="topic">
+        <div class="topic-header">
+            <h1><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></h1>
+            <div class="topic-header-meta">
+                <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a>
+                <span>发布于 {{ topic.createdAt | date('Y-m-d H:i:s') }}</span>
             </div>
         </div>
 
-        {% if topic.numComments > 0 %}
-            <div class="comments">
-                <h5 class="comment-counts">{{ topic.numComments }} 个回复</h5>
-                {% for comment in comments %}
-                    <div class="comment">
-                        <div class="message">
-                            <div class="author">
-                                <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
-                                <span
-                                        class="since">{{ comment.createdAt | date('m-d H:i:s') }}</span>
-                            </div>
-                            <div class="actions">
-                                <a class="reply"
-                                   href="{{ path('topic_show', {'id': comment.topic.id, 'commentId': comment.id}) }}#comment">回复</a>
+        <div class="topic-body">
+            {{ topic.body | purify }}
+        </div>
 
-                                {% if can_edit_comment(comment) %}
-                                    <a class="edit"
-                                       href="{{ path('comment_edit', {'id': comment.id}) }}">编辑</a>
-                                {% endif %}
-                                {% if can_delete_comment(comment) %}
-                                    <a class="delete"
-                                       href="{{ path('comment_delete', {'id': comment.id}) }}"
-                                       onclick="return confirm('确认删除该回复吗？')">删除</a>
-                                {% endif %}
-                            </div>
-
-                            <div class="message-text">
-
-                                {% if comment.parent %}
-
-                                    <blockquote class="quote">
-                                        <a href="{{ path('user_profile', {'username': comment.parent.user.username }) }}">{{ comment.parent.user.name }}</a>: {{ comment.parent.body }}
-                                    </blockquote>
-
-                                {% endif %}
-
-                                {{ comment.body }}
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        <div class="post">
-            <h5 class="mb-4">
-                回复主题
-            </h5>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'commentId': app.request.get('commentId') })) }}
-            {% else %}
-                <div class="card py-5">
-                    <div class="card-block text-center text-muted">
-                        <a href="{{ path('security_login') }}">登录</a>后回复主题
-                    </div>
-                </div>
+        <div class="topic-footer">
+            <a href="#comment">回复</a>
+            {% if can_edit_topic(topic) %}
+                <span class="topic-footer-bullet">•</span>
+                <a href="{{ path('topic_edit', {'id': topic.id}) }}">编辑</a>
+            {% endif %}
+            {% if can_delete_topic(topic) %}
+                <span class="topic-footer-bullet">•</span>
+                <a href="{{ path('topic_delete', {'id': topic.id}) }}" onclick="return confirm('确认删除该主题吗？')">删除</a>
             {% endif %}
         </div>
+    </article>
+
+    {% if topic.numComments > 0 %}
+        <div class="topic-comments">
+            <div class="topic-comments-header">
+                <h2>回复({{ topic.numComments }})</h2>
+            </div>
+
+            <ul class="topic-comments-list">
+                {% for comment in comments %}
+                    <li class="topic-comment">
+                        {% if comment.parent %}
+                            <div class="topic-comment topic-comment-nested">
+                                <div class="topic-comment-header">
+                                    <a href="{{ path('user_profile', {'username': comment.parent.user.username }) }}">{{ comment.parent.user.name }}</a>
+                                    <span>发布于 {{ comment.parent.createdAt | date('m-d H:i:s') }}</span>
+                                </div>
+                                <div class="topic-comment-body">
+                                    {{ comment.parent.body }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="topic-comment-header">
+                            <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
+                            <span>发布于 {{ comment.createdAt | date('m-d H:i:s') }}</span>
+                        </div>
+                        <div class="topic-comment-body">
+                            {{ comment.body | purify }}
+                        </div>
+                        <div class="topic-comment-footer">
+                            <a href="{{ path('topic_show', {'id': comment.topic.id, 'commentId': comment.id}) }}#comment">回复</a>
+
+                            {% if can_edit_comment(comment) %}
+                                <span class="topic-comment-footer-bullet">•</span>
+                                <a href="{{ path('comment_edit', {'id': comment.id}) }}">编辑</a>
+                            {% endif %}
+                            {% if can_delete_comment(comment) %}
+                                <span class="topic-comment-footer-bullet">•</span>
+                                <a href="{{ path('comment_delete', {'id': comment.id}) }}" onclick="return confirm('确认删除该回复吗？')">删除</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="topic-comment-form">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'commentId': app.request.get('commentId') })) }}
+        {% else %}
+
+            <a id="comment"></a>
+            <div class="comment-login-required">
+                <div class="comment-login-block">
+                    <a href="{{ path('security_login') }}">登录</a> 或 <a href="{{ path('user_register') }}">注册</a> 后回复
+                </div>
+            </div>
+
+        {% endif %}
     </div>
 
 {% endblock %}
 
-
 {% block sidebar %}
 
-    <div class="section">
-        <h5 class="section-header">最新主题</h5>
+    <div class="sidebar-block">
+        <h5 class="sidebar-block-title">最新主题</h5>
 
         <ul class="list-unstyled">
             {% for topic in latestTopics %}
@@ -108,10 +107,7 @@
 
     {{ render(controller('GroupBundle:Group:recommend')) }}
 
-    <hr />
-
-    <div class="text-muted">
-        <a class="btn btn-primary btn-sm mr-4" href="{{ path('topic_new', {'slug': topic.group.slug}) }}">发表主题</a>
+    <div class="sidebar-block text-muted">
         返回<a href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
     </div>
 

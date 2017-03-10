@@ -4,22 +4,30 @@
 
 {% block main %}
 
-    <div class="section group-discussion">
+    <div class="topic-list">
+        <header class="topic-list-header">
+            <h5>最新主题</h5>
+        </header>
 
-        <h5 class="section-header">最新主题</h5>
-
-        <table class="table topics">
+        <ul class="topic-list-items">
             {% for topic in topics %}
-                <tr class="topic">
-                    <td class="title"><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></td>
-                    <td class="comments text-center text-muted">{{ topic.numComments }}回复</td>
-                    <td class="created-at text-center text-muted">{{ topic.createdAt | date('m-d H:i') }}</td>
-                    <td class="group text-right"><a
-                                href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a>
-                    </td>
-                </tr>
+                <li class="topic-list-item">
+                    <a href="{{ path('topic_show', {'id': topic.id}) }}" class="item-title">{{ topic.title }}</a>
+                    <div class="topic-item-meta">
+                        <span><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a></span>
+                        <span class="topic-item-meta-bullet">•</span>
+                        <abbr>{{ topic.createdAt | date('m-d H:i') }}</abbr>
+                        <span class="topic-item-meta-bullet">•</span>
+                        <span>{{ topic.numComments }}回复</span>
+                        <span class="topic-item-meta-bullet">•</span>
+                        <span><a href="{{ path('group_show', {'slug': topic.group.slug}) }}">{{ topic.group.name }}</a></span>
+                    </div>
+                </li>
             {% endfor %}
-        </table>
+        </ul>
+        <div class="topic-list-pagination">
+
+        </div>
     </div>
 
 {% endblock %}

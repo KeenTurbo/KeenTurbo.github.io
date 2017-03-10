@@ -4,17 +4,15 @@
 
 {% block main %}
 
-    <div class="section">
-        <h5 class="section-header">编辑回复</h5>
+    <h5 class="mb-4">编辑回复</h5>
 
-        {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
-        {{ form_widget(form) }}
+    {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
+    {{ form_widget(form) }}
 
-        <div class="form-group text-right">
-            <a href="{{ path('topic_show', {'id': comment.topic.id}) }}" class="text-muted mr-2">取消编辑</a>
-            <button class="btn btn-primary" type="submit">保存</button>
-        </div>
-        {{ form_end(form) }}
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">保存</button>
     </div>
+
+    {{ form_end(form) }}
 
 {% endblock %}
