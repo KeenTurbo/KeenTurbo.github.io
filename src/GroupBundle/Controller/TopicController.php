@@ -112,6 +112,10 @@ class TopicController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        $topic->incrementNumViews(1);
+
+        $entityManager->flush();
+
         $comments = $entityManager->getRepository(Comment::class)->findLatestByTopic($topic);
 
         $latestTopics = $entityManager->getRepository(Topic::class)->findBy(['group' => $topic->getGroup()], ['createdAt' => 'DESC'], 10);

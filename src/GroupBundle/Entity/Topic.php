@@ -50,6 +50,13 @@ class Topic
      *
      * @ORM\Column(type="integer")
      */
+    private $numViews;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
     private $numComments;
 
     /**
@@ -94,6 +101,7 @@ class Topic
      */
     public function __construct()
     {
+        $this->numViews = 0;
         $this->numComments = 0;
         $this->createdAt = new \DateTime();
     }
@@ -144,6 +152,36 @@ class Topic
         $this->body = $body;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumViews()
+    {
+        return $this->numViews;
+    }
+
+    /**
+     * @param int $numViews
+     *
+     * @return self
+     */
+    public function setNumViews($numViews)
+    {
+        $this->numViews = intval($numViews);
+
+        return $this;
+    }
+
+    /**
+     * @param int $by
+     *
+     * @return int
+     */
+    public function incrementNumViews($by = 1)
+    {
+        return $this->numViews += intval($by);
     }
 
     /**
