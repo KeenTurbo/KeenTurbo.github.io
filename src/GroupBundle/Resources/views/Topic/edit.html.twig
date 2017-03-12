@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block title '编辑"' ~ topic.title ~ '"' %}
+
+{% block main %}
+
+    <h5 class="mb-4">编辑主题</h5>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

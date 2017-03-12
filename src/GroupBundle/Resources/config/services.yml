@@ -1,0 +1,44 @@
+services:
+    group.topic_counters_subscriber:
+        class: GroupBundle\EventListener\TopicCountersSubscriber
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    group.group_counters_subscriber:
+        class: GroupBundle\EventListener\GroupCountersSubscriber
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    group.user_counters_subscriber:
+        class: GroupBundle\EventListener\UserCountersSubscriber
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    group.topic_voter:
+        class: GroupBundle\Security\TopicVoter
+        public: false
+        tags:
+            - { name: security.voter }
+
+    group.comment_voter:
+        class: GroupBundle\Security\CommentVoter
+        public: false
+        tags:
+            - { name: security.voter }
+
+    group.twig.topic_extension:
+        class: GroupBundle\Twig\TopicExtension
+        arguments: ['@security.authorization_checker']
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    group.twig.comment_extension:
+        class: GroupBundle\Twig\CommentExtension
+        arguments: ['@security.authorization_checker']
+        public: false
+        tags:
+            - { name: twig.extension }

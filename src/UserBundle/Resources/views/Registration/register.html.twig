@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block title '注册' %}
+
+{% block body %}
+
+    <h5 class="mb-4">欢迎加入长沙之家</h5>
+
+    <div class="w-25">
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-primary">注册</button>
+        {{ form_end(form) }}
+
+        <div class="py-2 text-muted">
+            已经注册？<a href="{{ path('security_login') }}">立即登录</a>
+        </div>
+    </div>
+
+{% endblock %}

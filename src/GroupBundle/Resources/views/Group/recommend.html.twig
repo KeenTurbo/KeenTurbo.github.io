@@ -1,0 +1,7 @@
+<div class="sidebar-block sidebar-group-listings">
+    <h5 class="sidebar-block-title">推荐小组</h5>
+
+    {% for group in groups %}
+        <a class="btn btn-outline-primary btn-sm" href="{{ path('group_show', {'slug': group.slug}) }}">{{ group.name }}</a>
+    {% endfor %}
+</div>

@@ -1,0 +1,6 @@
+services:
+    user.authentication_subscriber:
+        class: UserBundle\EventListener\AuthenticationSubscriber
+        arguments: ['@security.authentication.manager', '@security.token_storage', 'main']
+        tags:
+            - { name: kernel.event_subscriber }
