@@ -58,18 +58,23 @@
                         <div class="topic-comment-body">
                             {{ comment.body | purify }}
                         </div>
-                        <div class="topic-comment-footer">
-                            <a href="{{ path('topic_show', {'id': comment.topic.id, 'commentId': comment.id}) }}#comment">回复</a>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <div class="topic-comment-footer">
+                                <a href="javascript:void(0)" class="action-comment">回复</a>
 
-                            {% if can_edit_comment(comment) %}
-                                <span class="topic-comment-footer-bullet">•</span>
-                                <a href="{{ path('comment_edit', {'id': comment.id}) }}">编辑</a>
-                            {% endif %}
-                            {% if can_delete_comment(comment) %}
-                                <span class="topic-comment-footer-bullet">•</span>
-                                <a href="{{ path('comment_delete', {'id': comment.id}) }}" onclick="return confirm('确认删除该回复吗？')">删除</a>
-                            {% endif %}
-                        </div>
+                                {% if can_edit_comment(comment) %}
+                                    <span class="topic-comment-footer-bullet">•</span>
+                                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">编辑</a>
+                                {% endif %}
+                                {% if can_delete_comment(comment) %}
+                                    <span class="topic-comment-footer-bullet">•</span>
+                                    <a href="{{ path('comment_delete', {'id': comment.id}) }}" onclick="return confirm('确认删除该回复吗？')">删除</a>
+                                {% endif %}
+                            </div>
+                            <div class="new-comment">
+                                {{ render(controller('GroupBundle:Comment:newForm', { 'id': comment.topic.id, 'parentId': comment.id })) }}
+                            </div>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
@@ -77,11 +82,11 @@
     {% endif %}
 
     <div class="topic-comment-form">
+        <a id="comment"></a>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id, 'commentId': app.request.get('commentId') })) }}
+            {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
         {% else %}
 
-            <a id="comment"></a>
             <div class="comment-login-required">
                 <div class="comment-login-block">
                     <a href="{{ path('security_login') }}">登录</a> 或 <a href="{{ path('user_register') }}">注册</a> 后回复

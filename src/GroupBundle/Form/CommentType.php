@@ -26,7 +26,7 @@ class CommentType extends AbstractType
             ->add('body', TextareaType::class, [
                 'label' => false,
                 'attr'  => [
-                    'rows' => 6
+                    'rows' => 4
                 ]
             ]);
     }
