@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
         <title>{% block title %}长沙之家{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
@@ -13,20 +13,20 @@
         {% block header %}
             <header class="site-header">
                 <nav class="navbar navbar-toggleable-md navbar-light">
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
                     <div class="container">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
                         <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-smile-o"></i> 长沙之家</a>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                            <ul class="navbar-nav mx-sm-4">
+                            <ul class="navbar-nav mx-lg-4">
                                 <li class="nav-item"><a class="nav-link" href="{{ path('homepage') }}">首页</a></li>
                             </ul>
 
-                            <form class="navbar-search form-inline ml-sm-4 mr-auto" action="javascript:void(0)">
+                            <form class="navbar-search form-inline ml-lg-4 mr-auto" action="javascript:void(0)">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="搜索主题">
                                     <button class="btn btn-search" type="submit">搜索
