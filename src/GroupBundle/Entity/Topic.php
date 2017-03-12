@@ -26,7 +26,7 @@ class Topic
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=200)
      * @Assert\NotBlank(message="请输入标题")
      */
     private $title;

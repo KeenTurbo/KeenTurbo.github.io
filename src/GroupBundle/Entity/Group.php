@@ -24,21 +24,21 @@ class Group
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $slug;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="text")
      */
     private $description;
 
