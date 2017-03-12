@@ -4,7 +4,7 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @UniqueEntity("username", message="用户名不可用", groups={"registration"})
  */
-class User implements UserInterface
+class User implements AdvancedUserInterface
 {
     const ROLE_USER = 'ROLE_USER';
 
@@ -114,6 +114,13 @@ class User implements UserInterface
     private $enabled;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $locked;
+
+    /**
      * @var int
      *
      * @ORM\Column(type="integer")
@@ -144,6 +151,7 @@ class User implements UserInterface
         $this->numTopics = 0;
         $this->numComments = 0;
         $this->enabled = true;
+        $this->locked = false;
         $this->createdAt = new \DateTime();
     }
 
@@ -408,9 +416,45 @@ class User implements UserInterface
      */
     public function setEnabled($enabled)
     {
-        $this->enabled = $enabled;
+        $this->enabled = (bool)$enabled;
 
         return $this;
+    }
+
+    /**
+     * @param bool $locked
+     *
+     * @return self
+     */
+    public function setLocked($locked)
+    {
+        $this->locked = (bool)$locked;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return !$this->locked;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
     }
 
     /**
