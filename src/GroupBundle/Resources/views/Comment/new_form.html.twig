@@ -1,21 +1,6 @@
-{% if parent %}
-    <div class="topic-comment topic-comment-nested">
-        <div class="topic-comment-header">
-            <a href="{{ path('user_profile', {'username': parent.user.username }) }}">{{ parent.user.name }}</a>
-            <span>发布于 {{ parent.createdAt | date('m-d H:i:s') }}</span>
-        </div>
-        <div class="topic-comment-body">
-            {{ parent.body }}
-        </div>
-        <a class="close action-cancel-comment">
-            <span>&times;</span>
-        </a>
-    </div>
-{% endif %}
-
 {{ form_start(form, { method: 'POST', action: path('comment_new', {'id': topic.id}), 'attr': {'novalidate': 'novalidate'} }) }}
 
-{{ form_widget(form) }}
+{{ form_row(form.body) }}
 
 <div class="form-group">
     <button class="btn btn-primary" type="submit">回复</button>

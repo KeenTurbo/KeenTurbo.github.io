@@ -124,16 +124,13 @@ class CommentController extends Controller
         $form = $this->createForm(CommentType::class);
 
         $parent = null;
-        if (null !== $parentId = $request->get('commentId')) {
-            if (null !== $parent = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentId, 'topic' => $topic])) {
-                $form->get('parent_id')->setData($parent->getId());
-            }
+        if (null !== $parentId = $request->get('parentId')) {
+            $form->get('parent_id')->setData($parentId);
         }
 
         return $this->render('GroupBundle:Comment:new_form.html.twig', [
-            'topic'  => $topic,
-            'parent' => $parent,
-            'form'   => $form->createView()
+            'topic' => $topic,
+            'form'  => $form->createView()
         ]);
     }
 }
