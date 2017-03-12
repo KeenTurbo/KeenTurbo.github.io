@@ -16,7 +16,7 @@ class HomepageController extends Controller
     /**
      * @Route("/", name="homepage")
      * @Method("GET")
-     * @Cache(smaxage="10")
+     * @Cache(smaxage="5")
      */
     public function indexAction()
     {
