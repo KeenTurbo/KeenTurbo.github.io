@@ -4,7 +4,7 @@
 
 {% block main %}
 
-    <h5 class="mb-4">发表新主题</h5>
+    <h5 class="mb-4"><a href="{{ path('group_show', {'slug': group.slug}) }}">长沙城市</a> / 发表新主题</h5>
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
