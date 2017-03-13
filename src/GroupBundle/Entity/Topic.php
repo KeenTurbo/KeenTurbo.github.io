@@ -3,13 +3,14 @@
 namespace GroupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="cshome_topic")
+ * @ORM\Table(name="cshome_topic", indexes={@Index(columns={"deleted_at", "touched_at"})})
  * @ORM\Entity(repositoryClass="GroupBundle\Repository\TopicRepository")
  */
 class Topic
@@ -81,6 +82,13 @@ class Topic
     private $deletedAt;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $touchedAt;
+
+    /**
      * @var Group
      *
      * @ORM\ManyToOne(targetEntity="GroupBundle\Entity\Group")
@@ -104,6 +112,7 @@ class Topic
         $this->numViews = 0;
         $this->numComments = 0;
         $this->createdAt = new \DateTime();
+        $this->touchedAt = new \DateTime();
     }
 
     /**
@@ -276,6 +285,26 @@ class Topic
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTouchedAt()
+    {
+        return $this->touchedAt;
+    }
+
+    /**
+     * @param \DateTime $touchedAt
+     *
+     * @return self
+     */
+    public function setTouchedAt(\DateTime $touchedAt)
+    {
+        $this->touchedAt = $touchedAt;
 
         return $this;
     }

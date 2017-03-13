@@ -3,13 +3,14 @@
 namespace GroupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
  *
- * @ORM\Table(name="cshome_topic_comment")
+ * @ORM\Table(name="cshome_topic_comment", indexes={@Index(columns={"deleted_at", "created_at"})})
  * @ORM\Entity(repositoryClass="GroupBundle\Repository\CommentRepository")
  */
 class Comment
