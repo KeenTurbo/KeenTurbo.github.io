@@ -19,7 +19,7 @@ class TopicRepository extends EntityRepository
             SELECT t
             FROM GroupBundle:Topic t
             WHERE t.deletedAt IS NULL
-            ORDER BY t.createdAt DESC
+            ORDER BY t.touchedAt DESC
         ');
 
         return $query->getResult();
@@ -37,7 +37,7 @@ class TopicRepository extends EntityRepository
             FROM GroupBundle:Topic t
             WHERE t.deletedAt IS NULL
             AND t.group = :group
-            ORDER BY t.createdAt DESC
+            ORDER BY t.touchedAt DESC
         ')->setParameter('group', $group);
 
         return $query->getResult();
