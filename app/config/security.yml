@@ -46,3 +46,4 @@ security:
 
             remember_me:
                 secret: '%secret%'
+                secure: true
