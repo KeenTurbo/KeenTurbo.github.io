@@ -22,7 +22,7 @@ class TopicController extends Controller
     /**
      * @Route("/group/{slug}/new", name="topic_new")
      * @Method({"GET", "POST"})
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function newAction(Request $request, Group $group)
     {

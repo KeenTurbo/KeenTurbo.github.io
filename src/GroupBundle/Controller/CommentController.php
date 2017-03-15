@@ -21,7 +21,7 @@ class CommentController extends Controller
     /**
      * @Route("/topic/{id}/comment", name="comment_new")
      * @Method("POST")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function newAction(Request $request, Topic $topic)
     {

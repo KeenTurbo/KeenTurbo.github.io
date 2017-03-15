@@ -18,7 +18,7 @@ class SettingsController extends Controller
     /**
      * @Route("/settings", name="settings_index")
      * @Method({"GET", "POST"})
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function profileAction(Request $request)
     {
@@ -47,7 +47,7 @@ class SettingsController extends Controller
     /**
      * @Route("/settings/password", name="settings_password")
      * @Method({"GET", "POST"})
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function passwordAction(Request $request)
     {
