@@ -12,7 +12,7 @@
         <ul class="topic-list-items">
             {% for topic in topics %}
                 <li class="topic-list-item">
-                    <a href="{{ path('topic_show', {'id': topic.id}) }}" class="item-title">{{ topic.title }}</a>
+                    <a href="{{ path('topic_show', {'id': topic.id}) }}" class="topic-item-title">{{ topic.title }}</a>
                     <div class="topic-item-meta">
                         <span><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a></span>
                         <span class="topic-item-meta-bullet">•</span>

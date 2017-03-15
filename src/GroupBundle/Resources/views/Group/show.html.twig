@@ -8,14 +8,14 @@
         <header class="topic-list-header">
             <h5>
                 {{ group.name }}
-                <a class="btn btn-sm btn-outline-primary pull-right" href="{{ path('topic_new', {'slug': group.slug}) }}"><i class="fa fa-pencil"></i> <strong>发新主题</strong></a>
+                <a class="btn btn-post btn-outline-primary pull-right font-weight-bold" href="{{ path('topic_new', {'slug': group.slug}) }}"><i class="fa fa-pencil"></i> 发新主题</a>
             </h5>
         </header>
 
         <ul class="topic-list-items">
             {% for topic in topics %}
                 <li class="topic-list-item">
-                    <a href="{{ path('topic_show', {'id': topic.id}) }}" class="item-title">{{ topic.title }}</a>
+                    <a href="{{ path('topic_show', {'id': topic.id}) }}" class="topic-item-title">{{ topic.title }}</a>
                     <div class="topic-item-meta">
                         <span><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a></span>
                         <span class="topic-item-meta-bullet">•</span>
