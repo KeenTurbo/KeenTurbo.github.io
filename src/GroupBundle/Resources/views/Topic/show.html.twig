@@ -83,7 +83,7 @@
 
     <div class="topic-comment-form">
         <a id="comment"></a>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
         {% else %}
 

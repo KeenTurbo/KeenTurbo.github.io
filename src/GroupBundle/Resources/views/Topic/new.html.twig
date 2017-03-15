@@ -1,10 +1,10 @@
 {% extends '::base.html.twig' %}
 
-{% block title '发表新主题' %}
+{% block title '在"' ~ group.name ~ '"发表新主题' %}
 
 {% block main %}
 
-    <h5 class="mb-4"><a href="{{ path('group_show', {'slug': group.slug}) }}">长沙城市</a> / 发表新主题</h5>
+    <h5 class="mb-4">在"{{ group.name }}"发表新主题</h5>
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
@@ -14,5 +14,9 @@
     </div>
 
     {{ form_end(form) }}
+
+    <div class="">
+        <a href="{{ path('group_show', {'slug': group.slug}) }}" class="text-muted">返回{{ group.name }}</a>
+    </div>
 
 {% endblock %}
