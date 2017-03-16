@@ -17,17 +17,19 @@
             {{ topic.body | purify }}
         </div>
 
-        <div class="topic-footer">
-            <a href="#comment">回复</a>
-            {% if can_edit_topic(topic) %}
-                <span class="topic-footer-bullet">•</span>
-                <a href="{{ path('topic_edit', {'id': topic.id}) }}">编辑</a>
-            {% endif %}
-            {% if can_delete_topic(topic) %}
-                <span class="topic-footer-bullet">•</span>
-                <a href="{{ path('topic_delete', {'id': topic.id}) }}" onclick="return confirm('确认删除该主题吗？')">删除</a>
-            {% endif %}
-        </div>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div class="topic-footer">
+                <a href="#comment">回复</a>
+                {% if can_edit_topic(topic) %}
+                    <span class="topic-footer-bullet">•</span>
+                    <a href="{{ path('topic_edit', {'id': topic.id}) }}">编辑</a>
+                {% endif %}
+                {% if can_delete_topic(topic) %}
+                    <span class="topic-footer-bullet">•</span>
+                    <a href="{{ path('topic_delete', {'id': topic.id}) }}" onclick="return confirm('确认删除该主题吗？')">删除</a>
+                {% endif %}
+            </div>
+        {% endif %}
     </article>
 
     {% if topic.numComments > 0 %}
@@ -58,7 +60,7 @@
                         <div class="topic-comment-body">
                             {{ comment.body | purify }}
                         </div>
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="topic-comment-footer">
                                 <a href="javascript:void(0)" class="action-comment">回复</a>
 
