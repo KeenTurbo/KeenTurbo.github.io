@@ -110,6 +110,10 @@ class TopicController extends Controller
      */
     public function showAction(Topic $topic)
     {
+        if ($topic->isDeleted()) {
+            throw $this->createNotFoundException();
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $topic->incrementNumViews(1);
@@ -118,7 +122,7 @@ class TopicController extends Controller
 
         $comments = $entityManager->getRepository(Comment::class)->findLatestByTopic($topic);
 
-        $latestTopics = $entityManager->getRepository(Topic::class)->findBy(['group' => $topic->getGroup()], ['createdAt' => 'DESC'], 10);
+        $latestTopics = $entityManager->getRepository(Topic::class)->findLatestByGroup($topic->getGroup());
 
         return $this->render('GroupBundle:Topic:show.html.twig', [
             'topic'        => $topic,
