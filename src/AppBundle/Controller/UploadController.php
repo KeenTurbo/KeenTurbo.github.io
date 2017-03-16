@@ -19,7 +19,7 @@ class UploadController extends Controller
     /**
      * @Route("/uploader/upload")
      * @Method("POST")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function uploadAction(Request $request)
     {
