@@ -48,7 +48,7 @@
                                     <span>发布于 {{ comment.parent.createdAt | date('m-d H:i:s') }}</span>
                                 </div>
                                 <div class="topic-comment-body">
-                                    {{ comment.parent.body }}
+                                    {{ comment.parent.body | purify }}
                                 </div>
                             </div>
                         {% endif %}
