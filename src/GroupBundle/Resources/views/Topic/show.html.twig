@@ -48,7 +48,7 @@
                                     <span>发布于 {{ comment.parent.createdAt | date('m-d H:i:s') }}</span>
                                 </div>
                                 <div class="topic-comment-body">
-                                    {{ comment.parent.body }}
+                                    {{ comment.parent.body | purify }}
                                 </div>
                             </div>
                         {% endif %}
@@ -73,7 +73,7 @@
                                     <a href="{{ path('comment_delete', {'id': comment.id}) }}" onclick="return confirm('确认删除该回复吗？')">删除</a>
                                 {% endif %}
                             </div>
-                            <div class="new-comment">
+                            <div class="quote-comment">
                                 {{ render(controller('GroupBundle:Comment:newForm', { 'id': comment.topic.id, 'parentId': comment.id })) }}
                             </div>
                         {% endif %}
