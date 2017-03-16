@@ -35,7 +35,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets:
-        version: 201703151437
+        version: 201703160839
     php_errors:
         log: true
 
