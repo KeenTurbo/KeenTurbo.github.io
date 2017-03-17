@@ -4,7 +4,7 @@
 
 {% block main %}
 
-    <h5 class="mb-4">在"{{ group.name }}"发表新主题</h5>
+    <h5 class="page-header-text mb-4">在"{{ group.name }}"发表新主题</h5>
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
@@ -15,8 +15,6 @@
 
     {{ form_end(form) }}
 
-    <div class="">
-        <a href="{{ path('group_show', {'slug': group.slug}) }}" class="text-muted">返回{{ group.name }}</a>
-    </div>
+    <a href="{{ path('group_show', {'slug': group.slug}) }}" class="text-muted">返回{{ group.name }}</a>
 
 {% endblock %}
