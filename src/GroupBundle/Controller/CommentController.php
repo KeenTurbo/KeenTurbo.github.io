@@ -54,7 +54,10 @@ class CommentController extends Controller
 
             $this->get('event_dispatcher')->dispatch(Events::COMMENT_CREATED, $event);
 
-            return $this->redirectToRoute('topic_show', ['id' => $topic->getId(), '_fragment' => 'comment']);
+            return $this->redirectToRoute('topic_show', [
+                'id'        => $topic->getId(),
+                '_fragment' => 'comment-' . $comment->getId()
+            ]);
         }
 
         return $this->render('GroupBundle:Comment:new.html.twig', [
@@ -123,14 +126,14 @@ class CommentController extends Controller
     {
         $form = $this->createForm(CommentType::class);
 
-        $parent = null;
         if (null !== $parentId = $request->get('parentId')) {
             $form->get('parent_id')->setData($parentId);
         }
 
         return $this->render('GroupBundle:Comment:new_form.html.twig', [
-            'topic' => $topic,
-            'form'  => $form->createView()
+            'topic'  => $topic,
+            'quoted' => null !== $parentId,
+            'form'   => $form->createView()
         ]);
     }
 }

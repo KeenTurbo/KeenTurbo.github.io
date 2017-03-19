@@ -122,7 +122,7 @@ class TopicController extends Controller
 
         $comments = $entityManager->getRepository(Comment::class)->findLatestByTopic($topic);
 
-        $latestTopics = $entityManager->getRepository(Topic::class)->findLatestByGroup($topic->getGroup());
+        $latestTopics = $entityManager->getRepository(Topic::class)->findLatestByGroup($topic->getGroup(), 10);
 
         return $this->render('GroupBundle:Topic:show.html.twig', [
             'topic'        => $topic,

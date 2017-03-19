@@ -4,6 +4,7 @@ namespace GroupBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use GroupBundle\Entity\Group;
+use GroupBundle\Entity\Topic;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
@@ -30,7 +31,7 @@ class TopicRepository extends EntityRepository
      *
      * @return array
      */
-    public function findLatestByGroup(Group $group)
+    public function findLatestByGroup(Group $group, $limit = Topic::NUM_ITEMS)
     {
         $query = $this->getEntityManager()->createQuery('
             SELECT t
@@ -38,7 +39,9 @@ class TopicRepository extends EntityRepository
             WHERE t.deletedAt IS NULL
             AND t.group = :group
             ORDER BY t.touchedAt DESC
-        ')->setParameter('group', $group);
+        ')
+            ->setParameter('group', $group)
+            ->setMaxResults($limit);
 
         return $query->getResult();
     }
