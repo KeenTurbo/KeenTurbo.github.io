@@ -30,6 +30,7 @@
                 {% endif %}
             </div>
         {% endif %}
+
     </article>
 
     {% if topic.numComments > 0 %}
@@ -40,7 +41,7 @@
 
             <ul class="topic-comments-list">
                 {% for comment in comments %}
-                    <li class="topic-comment">
+                    <li class="topic-comment" id="comment-{{ comment.id }}">
                         {% if comment.parent %}
                             <div class="topic-comment topic-comment-nested">
                                 <div class="topic-comment-header">
@@ -62,7 +63,7 @@
                         </div>
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="topic-comment-footer">
-                                <a href="javascript:void(0)" class="action-comment">回复</a>
+                                <a href="javascript:void(0)" class="action-quote">回复</a>
 
                                 {% if can_edit_comment(comment) %}
                                     <span class="topic-comment-footer-bullet">•</span>
@@ -85,6 +86,11 @@
 
     <div class="topic-comment-form">
         <a id="comment"></a>
+
+        <div class="topic-comment-form-header">
+            <h2>你的回复</h2>
+        </div>
+
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             {{ render(controller('GroupBundle:Comment:newForm', { 'id': topic.id })) }}
         {% else %}
@@ -97,7 +103,6 @@
 
         {% endif %}
     </div>
-
 {% endblock %}
 
 {% block sidebar %}

@@ -4,6 +4,9 @@
 
 <div class="form-group">
     <button class="btn btn-primary" type="submit">回复</button>
+    {% if quoted is defined and quoted %}
+    <a href="javascript:void(0)" class="btn btn-link text-muted action-cancel-quote">取消</a>
+    {% endif %}
 </div>
 
 {{ form_end(form) }}

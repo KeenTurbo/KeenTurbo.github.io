@@ -15,6 +15,8 @@ use UserBundle\Entity\User;
  */
 class Topic
 {
+    const NUM_ITEMS = 20;
+
     /**
      * @var int
      *
