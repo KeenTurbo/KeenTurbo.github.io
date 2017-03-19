@@ -86,7 +86,10 @@ class CommentController extends Controller
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('topic_show', ['id' => $comment->getTopic()->getId()]);
+            return $this->redirectToRoute('topic_show', [
+                'id'        => $comment->getTopic()->getId(),
+                '_fragment' => 'comment-' . $comment->getId()
+            ]);
         }
 
         return $this->render('GroupBundle:Comment:edit.html.twig', [
