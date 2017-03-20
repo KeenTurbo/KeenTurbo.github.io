@@ -10,8 +10,15 @@
         {% endblock %}
     </head>
     <body>
+        <!--[if lt IE 9]>
+        <div class="browser-warning">
+            <div class="message">
+                你正在使用低版本 IE 浏览器，请安装 <a href="http://www.google.com/chrome/">Google Chrome</a> 浏览器。
+            </div>
+        </div>
+        <![endif]-->
         {% block header %}
-            <header class="site-header">
+            <header class="site-header fixed-top">
                 <nav class="navbar navbar-toggleable-md navbar-light">
                     <div class="container">
                         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -89,15 +96,15 @@
         {% endblock %}
 
         {% if 'prod' == app.environment %}
-        <script>
-            var _hmt = _hmt || [];
-            (function () {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?27e0778e3f07bb043b051b9759909ada";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
+            <script>
+                var _hmt = _hmt || [];
+                (function () {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?27e0778e3f07bb043b051b9759909ada";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
         {% endif %}
     </body>
 </html>

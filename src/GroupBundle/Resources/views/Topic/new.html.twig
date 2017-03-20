@@ -18,3 +18,17 @@
     <a href="{{ path('group_show', {'slug': group.slug}) }}" class="text-muted">返回{{ group.name }}</a>
 
 {% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('js/ckeditor-4.6.2/ckeditor.js') }}"></script>
+
+    <script>
+        CKEDITOR.replace('topic_body', {
+            customConfig: '{{ asset('js/ckeditor-config.js') }}'
+        });
+    </script>
+
+{% endblock %}

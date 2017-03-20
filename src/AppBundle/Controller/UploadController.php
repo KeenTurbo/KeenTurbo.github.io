@@ -29,6 +29,10 @@ class UploadController extends Controller
         $file = $request->files->get('upload');
 
         try {
+            if ($request->get('ckCsrfToken') !== $request->cookies->get('ckCsrfToken')) {
+                throw new \Exception('请求不正确，请刷新页面后重试');
+            }
+
             if (!in_array($file->getMimeType(), ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'])) {
                 throw new \Exception('只能上传.png,.jpg,.gif格式文件');
             }

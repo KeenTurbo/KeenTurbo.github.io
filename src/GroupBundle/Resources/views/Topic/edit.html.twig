@@ -11,8 +11,23 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">保存</button>
+        <a href="{{ path('topic_show', {'id': topic.id}) }}" class="btn btn-link text-muted">取消</a>
     </div>
 
     {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script src="{{ asset('js/ckeditor-4.6.2/ckeditor.js') }}"></script>
+
+    <script>
+        CKEDITOR.replace('topic_body', {
+            customConfig: '{{ asset('js/ckeditor-config.js') }}'
+        });
+    </script>
 
 {% endblock %}
