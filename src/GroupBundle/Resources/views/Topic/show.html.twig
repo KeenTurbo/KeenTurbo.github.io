@@ -49,7 +49,7 @@
                                     <span>发布于 {{ comment.parent.createdAt | date('m-d H:i:s') }}</span>
                                 </div>
                                 <div class="topic-comment-body">
-                                    {{ comment.parent.body | purify }}
+                                    {{ comment.parent.body | nl2br }}
                                 </div>
                             </div>
                         {% endif %}
@@ -59,7 +59,7 @@
                             <span>发布于 {{ comment.createdAt | date('m-d H:i:s') }}</span>
                         </div>
                         <div class="topic-comment-body">
-                            {{ comment.body | purify }}
+                            {{ comment.body | nl2br }}
                         </div>
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="topic-comment-footer">
