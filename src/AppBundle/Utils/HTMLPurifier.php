@@ -15,7 +15,7 @@ class HTMLPurifier
     public function purify($text)
     {
         $config = \HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', 'p,ol,ul,li,img[src],blockquote,strong,u,em,a[href],br');
+        $config->set('HTML.Allowed', 'p,ol,ul,li,img[src],blockquote,strong,u,em,a[href],br,code,pre');
         $config->set('AutoFormat.AutoParagraph', true);
         $config->set('AutoFormat.Linkify', true);
         $config->set('HTML.TargetBlank', true);

@@ -27,6 +27,9 @@ class Markdown
         $this->purifier = $purifier;
 
         $this->parser = new \Parsedown();
+
+        $this->parser->setBreaksEnabled(true);
+        $this->parser->setUrlsLinked(true);
     }
 
     /**
