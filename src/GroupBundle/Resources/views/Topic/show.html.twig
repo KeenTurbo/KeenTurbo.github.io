@@ -43,21 +43,19 @@
                 {% for comment in comments %}
                     <li class="topic-comment" id="comment-{{ comment.id }}">
                         {% if comment.parent %}
-                            <div class="topic-comment topic-comment-nested">
-                                <div class="topic-comment-header">
-                                    <a href="{{ path('user_profile', {'username': comment.parent.user.username }) }}">{{ comment.parent.user.name }}</a>
-                                    <span>发布于 {{ comment.parent.createdAt | date('m-d H:i:s') }}</span>
-                                </div>
-                                <div class="topic-comment-body">
-                                    {{ comment.parent.body | nl2br }}
-                                </div>
+                            <div class="topic-comment-header">
+                                <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
+                                <span>回复</span>
+                                <a href="{{ path('user_profile', {'username': comment.parent.user.username }) }}">{{ comment.parent.user.name }}</a>
+                                <span>{{ comment.createdAt | date('m-d H:i:s') }}</span>
+                            </div>
+                        {% else %}
+                            <div class="topic-comment-header">
+                                <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
+                                <span>{{ comment.createdAt | date('m-d H:i:s') }}</span>
                             </div>
                         {% endif %}
 
-                        <div class="topic-comment-header">
-                            <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
-                            <span>发布于 {{ comment.createdAt | date('m-d H:i:s') }}</span>
-                        </div>
                         <div class="topic-comment-body">
                             {{ comment.body | nl2br }}
                         </div>
