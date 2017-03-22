@@ -29,6 +29,10 @@ class UploadController extends Controller
         $file = $request->files->get('upload');
 
         try {
+            if (null === $file || !$file->isValid()) {
+                throw new \Exception('请选择要上传的文件');
+            }
+
             if ($request->get('ckCsrfToken') !== $request->cookies->get('ckCsrfToken')) {
                 throw new \Exception('请求不正确，请刷新页面后重试');
             }
@@ -41,7 +45,7 @@ class UploadController extends Controller
                 throw new \Exception('文件大小不能超过 2MB');
             }
 
-            $filename = sha1(uniqid(rand(), true)) . '.' . $file->getClientOriginalExtension();
+            $filename = sha1_file($file->getRealPath()) . '.' . $file->getClientOriginalExtension();
             $url = sprintf('%s/%s_b', $this->getParameter('oss_bucket1_url'), $filename);
 
             $ossClient = new OssClient($this->getParameter('oss_access_key_id'), $this->getParameter('oss_access_key_secret'), $this->getParameter('oss_end_point'));
