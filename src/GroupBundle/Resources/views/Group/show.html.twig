@@ -21,7 +21,7 @@
                         <span class="topic-item-meta-bullet">•</span>
                         <abbr>{{ topic.createdAt | date('m-d H:i') }}</abbr>
                         <span class="topic-item-meta-bullet">•</span>
-                        <span>{{ topic.numComments }}回复</span>
+                        <span><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.numComments }}回复</a></span>
                     </div>
                 </li>
             {% endfor %}
