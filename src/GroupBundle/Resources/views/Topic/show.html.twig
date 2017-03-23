@@ -47,20 +47,20 @@
                                 <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
                                 <span>回复</span>
                                 <a href="{{ path('user_profile', {'username': comment.parent.user.username }) }}">{{ comment.parent.user.name }}</a>
-                                <span>{{ comment.createdAt | date('m-d H:i:s') }}</span>
                             </div>
                         {% else %}
                             <div class="topic-comment-header">
                                 <a href="{{ path('user_profile', {'username': comment.user.username }) }}">{{ comment.user.name }}</a>
-                                <span>{{ comment.createdAt | date('m-d H:i:s') }}</span>
                             </div>
                         {% endif %}
 
                         <div class="topic-comment-body">
                             {{ comment.body | nl2br }}
                         </div>
-                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <div class="topic-comment-footer">
+                        <div class="topic-comment-footer">
+                            <span class="float-left">{{ comment.createdAt | date('m-d H:i:s') }}</span>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
                                 <a href="javascript:void(0)" class="action-quote">回复</a>
 
                                 {% if can_edit_comment(comment) %}
@@ -71,7 +71,9 @@
                                     <span class="topic-comment-footer-bullet">•</span>
                                     <a href="{{ path('comment_delete', {'id': comment.id}) }}" onclick="return confirm('确认删除该回复吗？')">删除</a>
                                 {% endif %}
-                            </div>
+                            {% endif %}
+                        </div>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="quote-comment">
                                 {{ render(controller('GroupBundle:Comment:newForm', { 'id': comment.topic.id, 'parentId': comment.id })) }}
                             </div>
