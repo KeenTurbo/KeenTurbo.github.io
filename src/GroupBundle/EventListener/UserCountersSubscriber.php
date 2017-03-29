@@ -66,7 +66,7 @@ class UserCountersSubscriber implements EventSubscriberInterface
         $topic = $event->getSubject();
 
         $user = $topic->getUser();
-        $user->decrementNumComments(1);
+        $user->decrementNumTopics(1);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
