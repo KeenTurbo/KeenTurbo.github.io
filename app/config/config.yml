@@ -35,7 +35,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets:
-        base_urls: "%assets_base_url%"
+        base_urls: "%assets_base_urls%"
         version: "%assets_version%"
     php_errors:
         log: true
