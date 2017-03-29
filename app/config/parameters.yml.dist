@@ -26,5 +26,5 @@ parameters:
     oss_bucket1_url: ~
 
     # assets
-    assets_base_url: 'https://static.cshome.com'
+    assets_base_urls: ['https://static.cshome.com']
     assets_version: ~
