@@ -55,7 +55,7 @@
                         {% endif %}
 
                         <div class="topic-comment-body">
-                            {{ comment.body | nl2br }}
+                            {{ comment.body | purify }}
                         </div>
                         <div class="topic-comment-footer">
                             <span class="float-left">{{ comment.createdAt | date('m-d H:i:s') }}</span>
