@@ -107,6 +107,13 @@ class Topic
     private $user;
 
     /**
+     * @var Comment
+     *
+     * @ORM\ManyToOne(targetEntity="GroupBundle\Entity\Comment")
+     */
+    private $lastComment;
+
+    /**
      * Topic constructor.
      */
     public function __construct()
@@ -347,6 +354,26 @@ class Topic
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Comment
+     */
+    public function getLastComment()
+    {
+        return $this->lastComment;
+    }
+
+    /**
+     * @param Comment $lastComment
+     *
+     * @return self
+     */
+    public function setLastComment(Comment $lastComment)
+    {
+        $this->lastComment = $lastComment;
 
         return $this;
     }
