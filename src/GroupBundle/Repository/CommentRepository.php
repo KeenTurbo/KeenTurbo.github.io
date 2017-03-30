@@ -17,15 +17,12 @@ class CommentRepository extends EntityRepository
      */
     public function findLatestByTopic(Topic $topic)
     {
-        $query = $this->getEntityManager()
-            ->createQuery('
-            SELECT c
-            FROM GroupBundle:Comment c
-            WHERE c.deletedAt IS NULL
-            AND c.topic = :topic
-            ORDER BY c.createdAt ASC
-        ')->setParameter('topic', $topic);
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.deletedAt IS NULL')
+            ->andWhere('c.topic = :topic')
+            ->orderBy('c.createdAt', 'ASC')
+            ->setParameter('topic', $topic);
 
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }
 }

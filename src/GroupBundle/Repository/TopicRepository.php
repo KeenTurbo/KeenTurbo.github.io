@@ -16,14 +16,14 @@ class TopicRepository extends EntityRepository
      */
     public function findLatest()
     {
-        $query = $this->getEntityManager()->createQuery('
-            SELECT t
-            FROM GroupBundle:Topic t
-            WHERE t.deletedAt IS NULL
-            ORDER BY t.touchedAt DESC
-        ');
+        $qb = $this->createQueryBuilder('t')
+            ->select('t,u,g')
+            ->join('t.user', 'u')
+            ->join('t.group', 'g')
+            ->where('t.deletedAt IS NULL')
+            ->orderBy('t.touchedAt', 'DESC');
 
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -33,16 +33,16 @@ class TopicRepository extends EntityRepository
      */
     public function findLatestByGroup(Group $group, $limit = Topic::NUM_ITEMS)
     {
-        $query = $this->getEntityManager()->createQuery('
-            SELECT t
-            FROM GroupBundle:Topic t
-            WHERE t.deletedAt IS NULL
-            AND t.group = :group
-            ORDER BY t.touchedAt DESC
-        ')
+        $qb = $this->createQueryBuilder('t')
+            ->select('t,u,g')
+            ->join('t.user', 'u')
+            ->join('t.group', 'g')
+            ->where('t.deletedAt IS NULL')
+            ->andWhere('t.group = :group')
+            ->orderBy('t.touchedAt', 'DESC')
             ->setParameter('group', $group)
             ->setMaxResults($limit);
 
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }
 }
