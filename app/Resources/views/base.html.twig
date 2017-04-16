@@ -6,9 +6,11 @@
         <title>{% block title %}长沙之家{% endblock %}</title>
         <link rel="dns-prefetch" href="//pic1.cshome.com">
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0.min.css') }}" />
         {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" sizes="64x64" type="image/png" />
+        <link rel="apple-touch-icon" href="{{ asset('img/touch-icon-iphone.png') }}" />
     </head>
     <body>
         <!--[if lt IE 9]>
@@ -27,7 +29,7 @@
                         </button>
 
                         <div class="navbar-logo">
-                            <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-smile-o"></i> 长沙之家</a>
+                            <a href="{{ path('homepage') }}"><span>长沙之家</span></a>
                         </div>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
