@@ -23,60 +23,61 @@
         {% block header %}
             <header class="site-header fixed-top">
                 <div class="container">
-                    <nav class="navbar navbar-toggleable-md navbar-light">
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="navbar-logo">
+                    <nav class="header-navbar">
+                        <div class="header-logo">
                             <a href="{{ path('homepage') }}"><span>长沙之家</span></a>
                         </div>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="header-nav">
+                            <li><a class="nav-link" href="{{ path('homepage') }}">首页</a></li>
+                            <li><a class="nav-link" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a></li>
+                        </ul>
 
-                            <ul class="navbar-nav">
-                                <li class="nav-item"><a class="nav-link" href="{{ path('homepage') }}">首页</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a></li>
+                        <form class="header-search" action="javascript:void(0)">
+                            <div class="input-group">
+                                <input class="form-control" name="query" type="text" placeholder="搜索主题">
+                                <button class="btn btn-outline-secondary btn-search" type="submit">搜索</button>
+                            </div>
+                        </form>
+
+                        {% if app.user %}
+                            <ul class="header-nav more-nav">
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle"
+                                       href="{{ path('settings_index') }}"
+                                       data-toggle="dropdown">
+                                        {{ app.user.username }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
+                                    </div>
+                                </li>
                             </ul>
+                        {% else %}
+                            <div class="signup-login-buttons">
+                                <a class="btn btn-outline-secondary" href="{{ path('security_login') }}">登录</a>
+                                <a class="btn btn-primary" href="{{ path('user_register') }}">注册</a>
+                            </div>
+                        {% endif %}
 
-                            <form class="navbar-search form-inline" action="javascript:void(0)">
-                                <div class="input-group">
-                                    <input class="form-control" name="query" type="text" placeholder="搜索主题">
-                                    <button class="btn btn-outline-secondary btn-search" type="submit">搜索
-                                    </button>
-                                </div>
-                            </form>
-
-                            {% if app.user %}
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle"
-                                           href="{{ path('settings_index') }}"
-                                           data-toggle="dropdown">
-                                            {{ app.user.username }}
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            {% else %}
-                                <ul class="navbar-nav signup-login-links">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('user_register') }}">注册</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('security_login') }}">登录</a>
-                                    </li>
-                                </ul>
-                                <div class="signup-login-buttons">
-                                    <a class="btn btn-outline-secondary" href="{{ path('security_login') }}">登录</a>
-                                    <a class="btn btn-primary" href="{{ path('user_register') }}">注册</a>
-                                </div>
-                            {% endif %}
-
+                        <div class="mobile-nav">
+                            <a href="{{ path('settings_index') }}" class="mobile-nav-toggle" data-toggle="dropdown">
+                                <span class="mobile-nav-toggle-inner"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ path('homepage') }}">首页</a>
+                                <a class="dropdown-item" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a>
+                                <div class="dropdown-divider"></div>
+                                {% if app.user %}
+                                    <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
+                                    <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{{ path('security_login') }}">登录</a>
+                                    <a class="dropdown-item" href="{{ path('user_register') }}">注册</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </nav>
                 </div>
