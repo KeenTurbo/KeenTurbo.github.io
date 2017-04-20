@@ -63,9 +63,9 @@
                         {% endif %}
 
                         <div class="mobile-nav">
-                            <a href="{{ path('settings_index') }}" class="mobile-nav-toggle" data-toggle="dropdown">
+                            <button class="mobile-nav-toggle" data-toggle="dropdown">
                                 <span class="mobile-nav-toggle-inner"></span>
-                            </a>
+                            </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ path('homepage') }}">首页</a>
                                 <a class="dropdown-item" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a>
