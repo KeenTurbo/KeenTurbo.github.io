@@ -32,9 +32,12 @@
                 </li>
             {% endfor %}
         </ul>
-        <div class="topic-list-pagination">
 
-        </div>
+        {% if topics.haveToPaginate %}
+            <div class="topic-list-pagination">
+                {{ pagerfanta(topics, 'twitter_bootstrap4_translated', {routeName: 'homepage_paginated'}) }}
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}

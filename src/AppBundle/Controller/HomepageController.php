@@ -14,14 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomepageController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", defaults={"page": 1}, name="homepage")
+     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="homepage_paginated")
      * @Method("GET")
      * @Cache(smaxage="5")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findLatest();
+        $topics = $entityManager->getRepository(Topic::class)->findLatestWithPaginator($page);
 
         return $this->render('AppBundle:Homepage:index.html.twig', [
             'topics' => $topics
