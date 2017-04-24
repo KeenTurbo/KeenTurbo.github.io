@@ -28,11 +28,6 @@
                             <a href="{{ path('homepage') }}"><span>长沙之家</span></a>
                         </div>
 
-                        <ul class="header-nav">
-                            <li><a class="nav-link" href="{{ path('homepage') }}">首页</a></li>
-                            <li><a class="nav-link" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a></li>
-                        </ul>
-
                         <form class="header-search" action="javascript:void(0)">
                             <div class="input-group">
                                 <input class="form-control" name="query" type="text" placeholder="搜索主题">
@@ -40,10 +35,15 @@
                             </div>
                         </form>
 
+                        <ul class="header-nav">
+                            <li><a class="nav-item-link" href="{{ path('homepage') }}">首页</a></li>
+                            <li><a class="nav-item-link" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a></li>
+                        </ul>
+
                         {% if app.user %}
                             <ul class="header-nav more-nav">
                                 <li class="dropdown">
-                                    <a class="nav-link dropdown-toggle"
+                                    <a class="nav-item-link dropdown-toggle"
                                        href="{{ path('settings_index') }}"
                                        data-toggle="dropdown">
                                         {{ app.user.username }}
