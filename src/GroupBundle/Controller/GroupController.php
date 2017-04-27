@@ -26,12 +26,13 @@ class GroupController extends Controller
         $topics = $entityManager->getRepository(Topic::class)->findPaginatedLatestByGroup($group, $page);
 
         $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
+        $currentPage = $page < $maxPages ? $page : $maxPages;
 
         return $this->render('GroupBundle:Group:show.html.twig', [
             'group'       => $group,
             'topics'      => $topics,
             'maxPages'    => $maxPages,
-            'currentPage' => $page
+            'currentPage' => $currentPage
         ]);
     }
 

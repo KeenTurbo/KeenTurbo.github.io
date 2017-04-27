@@ -25,11 +25,12 @@ class HomepageController extends Controller
         $topics = $entityManager->getRepository(Topic::class)->findPaginatedLatest($page);
 
         $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
+        $currentPage = $page < $maxPages ? $page : $maxPages;
 
         return $this->render('AppBundle:Homepage:index.html.twig', [
             'topics'      => $topics,
             'maxPages'    => $maxPages,
-            'currentPage' => $page
+            'currentPage' => $currentPage
         ]);
     }
 }
