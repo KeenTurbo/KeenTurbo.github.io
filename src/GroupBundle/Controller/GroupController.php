@@ -27,7 +27,7 @@ class GroupController extends Controller
 
         $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
 
-        if ($page > $maxPages) {
+        if ($page > 1 && $page > $maxPages) {
             throw $this->createNotFoundException();
         }
 
