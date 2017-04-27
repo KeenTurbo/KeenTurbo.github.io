@@ -26,14 +26,10 @@ class HomepageController extends Controller
 
         $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
 
-        if ($page > 1 && $page > $maxPages) {
-            throw $this->createNotFoundException();
-        }
-
         return $this->render('AppBundle:Homepage:index.html.twig', [
             'topics'      => $topics,
             'maxPages'    => $maxPages,
-            'currentPage' => $page,
+            'currentPage' => $page
         ]);
     }
 }

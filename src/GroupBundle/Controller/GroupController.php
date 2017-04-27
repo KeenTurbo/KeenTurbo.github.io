@@ -27,15 +27,11 @@ class GroupController extends Controller
 
         $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
 
-        if ($page > 1 && $page > $maxPages) {
-            throw $this->createNotFoundException();
-        }
-
         return $this->render('GroupBundle:Group:show.html.twig', [
             'group'       => $group,
             'topics'      => $topics,
             'maxPages'    => $maxPages,
-            'currentPage' => $page,
+            'currentPage' => $page
         ]);
     }
 
