@@ -15,17 +15,25 @@ class HomepageController extends Controller
 {
     /**
      * @Route("/", defaults={"page": 1}, name="homepage")
-     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="homepage_paginated")
+     * @Route("/p/{page}", requirements={"page": "[1-9]\d*"}, name="homepage_paginated")
      * @Method("GET")
      * @Cache(smaxage="5")
      */
     public function indexAction($page)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findLatestWithPaginator($page);
+        $topics = $entityManager->getRepository(Topic::class)->findPaginatedLatest($page);
+
+        $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
+
+        if ($page > $maxPages) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('AppBundle:Homepage:index.html.twig', [
-            'topics' => $topics
+            'topics'      => $topics,
+            'maxPages'    => $maxPages,
+            'currentPage' => $page,
         ]);
     }
 }

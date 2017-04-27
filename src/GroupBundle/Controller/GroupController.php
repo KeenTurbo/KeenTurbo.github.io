@@ -16,18 +16,26 @@ class GroupController extends Controller
 {
     /**
      * @Route("/group/{slug}", defaults={"page": 1}, name="group_show")
-     * @Route("/group/{slug}/page/{page}", requirements={"page": "[1-9]\d*"}, name="group_show_paginated")
+     * @Route("/group/{slug}/p/{page}", requirements={"page": "[1-9]\d*"}, name="group_show_paginated")
      * @Method("GET")
      * @Cache(smaxage="5")
      */
     public function showAction(Group $group, $page)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findLatestByGroupWithPaginator($group, $page);
+        $topics = $entityManager->getRepository(Topic::class)->findPaginatedLatestByGroup($group, $page);
+
+        $maxPages = ceil($topics->count() / Topic::NUM_ITEMS);
+
+        if ($page > $maxPages) {
+            throw $this->createNotFoundException();
+        }
 
         return $this->render('GroupBundle:Group:show.html.twig', [
-            'group'  => $group,
-            'topics' => $topics
+            'group'       => $group,
+            'topics'      => $topics,
+            'maxPages'    => $maxPages,
+            'currentPage' => $page,
         ]);
     }
 
