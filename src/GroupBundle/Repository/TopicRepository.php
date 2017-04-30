@@ -3,9 +3,10 @@
 namespace GroupBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use GroupBundle\Entity\Group;
 use GroupBundle\Entity\Topic;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
@@ -39,16 +40,14 @@ class TopicRepository extends EntityRepository
 
     /**
      * @param int $page
-     * @param int $limit
      *
-     * @return Paginator
+     * @return Pagerfanta
      */
-    public function findPaginatedLatest($page = 1, $limit = Topic::NUM_ITEMS)
+    public function findPaginatedLatest($page = 1)
     {
-        $paginator = new Paginator($this->queryLatest());
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit);
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest()));
+        $paginator->setMaxPerPage(Topic::NUM_ITEMS);
+        $paginator->setCurrentPage($page);
 
         return $paginator;
     }
@@ -58,14 +57,13 @@ class TopicRepository extends EntityRepository
      * @param int   $page
      * @param int   $limit
      *
-     * @return Paginator
+     * @return Pagerfanta
      */
-    public function findPaginatedLatestByGroup(Group $group, $page = 1, $limit = Topic::NUM_ITEMS)
+    public function findPaginatedLatestByGroup(Group $group, $page = 1)
     {
-        $paginator = new Paginator($this->queryLatestByGroup($group));
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit);
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatestByGroup($group)));
+        $paginator->setMaxPerPage(Topic::NUM_ITEMS);
+        $paginator->setCurrentPage($page);
 
         return $paginator;
     }

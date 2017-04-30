@@ -33,13 +33,10 @@
             {% endfor %}
         </ul>
 
-        {% if maxPages > 1 %}
-            <div class="pagination">
-                <a class="pagination-previous{{ currentPage == 1 ? ' disabled' }}" href="{{ path('homepage_paginated', {page: currentPage - 1 < 1 ? 1 : currentPage - 1}) }}">‹ 上一页</a>
-                <span class="pagination-state">{{ currentPage }}/{{ maxPages }}</span>
-                <a class="pagination-next{{ currentPage == maxPages ? ' disabled' }}" href="{{ path('homepage_paginated', {page: currentPage + 1 <= maxPages ? currentPage + 1 : currentPage}) }}">下一页 ›</a>
-            </div>
+        {% if topics.haveToPaginate %}
+            {{ pagerfanta(topics, 'simple', { routeName: 'homepage_paginated' }) }}
         {% endif %}
+
     </div>
 
 {% endblock %}
