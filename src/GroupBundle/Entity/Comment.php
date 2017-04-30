@@ -15,6 +15,8 @@ use UserBundle\Entity\User;
  */
 class Comment
 {
+    const NUM_ITEMS = 100;
+
     /**
      * @var int
      *

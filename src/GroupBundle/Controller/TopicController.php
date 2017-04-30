@@ -105,10 +105,11 @@ class TopicController extends Controller
     }
 
     /**
-     * @Route("/topic/{id}", name="topic_show", requirements={"id": "\d+"})
+     * @Route("/topic/{id}", defaults={"page": 1}, name="topic_show", requirements={"id": "\d+"})
+     * @Route("/topic/{id}/p/{page}", requirements={"page": "[1-9]\d*"}, name="topic_show_paginated")
      * @Method("GET")
      */
-    public function showAction(Topic $topic)
+    public function showAction(Topic $topic, $page)
     {
         if ($topic->isDeleted()) {
             throw $this->createNotFoundException();
@@ -120,7 +121,7 @@ class TopicController extends Controller
 
         $entityManager->flush();
 
-        $comments = $entityManager->getRepository(Comment::class)->findLatestByTopic($topic);
+        $comments = $entityManager->getRepository(Comment::class)->findPaginatedLatestByTopic($topic, $page);
 
         $latestTopics = $entityManager->getRepository(Topic::class)->findLatestByGroup($topic->getGroup(), 10);
 

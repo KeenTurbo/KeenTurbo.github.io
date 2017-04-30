@@ -19,9 +19,10 @@ class TopicRepository extends EntityRepository
     public function queryLatest()
     {
         return $this->createQueryBuilder('t')
-            ->select('t,u,g')
+            ->select('t,u,g,c')
             ->join('t.user', 'u')
             ->join('t.group', 'g')
+            ->leftJoin('t.lastComment', 'c')
             ->where('t.deletedAt IS NULL')
             ->orderBy('t.touchedAt', 'DESC');
     }

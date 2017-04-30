@@ -36,7 +36,7 @@
     {% if topic.numComments > 0 %}
         <div class="topic-comments">
             <div class="topic-comments-header">
-                <h2>回复({{ topic.numComments }})</h2>
+                <h2>回复 ({{ topic.numComments }})</h2>
             </div>
 
             <ul class="topic-comments-list">
@@ -82,6 +82,10 @@
                 {% endfor %}
             </ul>
         </div>
+
+        {% if comments.haveToPaginate %}
+            {{ pagerfanta(comments, 'simple', { routeName: 'topic_show_paginated', routeParams: { id: topic.id } }) }}
+        {% endif %}
     {% endif %}
 
     <div class="topic-comment-form">
