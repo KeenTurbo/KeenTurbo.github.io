@@ -124,7 +124,7 @@ class TopicController extends Controller
         $comments = $entityManager->getRepository(Comment::class)->findLatest($topic, $page);
 
         $latestTopics = $entityManager->getRepository(Topic::class)
-            ->queryLatest()
+            ->queryLatestByGroup($topic->getGroup())
             ->setMaxResults(10)
             ->getQuery()
             ->getResult();
