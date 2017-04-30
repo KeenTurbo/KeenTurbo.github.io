@@ -55,7 +55,6 @@ class TopicRepository extends EntityRepository
     /**
      * @param Group $group
      * @param int   $page
-     * @param int   $limit
      *
      * @return Pagerfanta
      */
