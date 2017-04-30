@@ -22,7 +22,7 @@ class HomepageController extends Controller
     public function indexAction($page)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findPaginatedLatest($page);
+        $topics = $entityManager->getRepository(Topic::class)->findLatest($page);
 
         return $this->render('AppBundle:Homepage:index.html.twig', [
             'topics' => $topics

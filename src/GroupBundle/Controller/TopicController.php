@@ -121,9 +121,13 @@ class TopicController extends Controller
 
         $entityManager->flush();
 
-        $comments = $entityManager->getRepository(Comment::class)->findPaginatedLatestByTopic($topic, $page);
+        $comments = $entityManager->getRepository(Comment::class)->findLatest($topic, $page);
 
-        $latestTopics = $entityManager->getRepository(Topic::class)->findLatestByGroup($topic->getGroup(), 10);
+        $latestTopics = $entityManager->getRepository(Topic::class)
+            ->queryLatest()
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
 
         return $this->render('GroupBundle:Topic:show.html.twig', [
             'topic'        => $topic,

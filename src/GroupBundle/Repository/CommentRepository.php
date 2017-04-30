@@ -18,7 +18,7 @@ class CommentRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function queryLatestByTopic(Topic $topic)
+    public function queryLatest(Topic $topic)
     {
         return $this->createQueryBuilder('c')
             ->select('c,t,u')
@@ -36,9 +36,9 @@ class CommentRepository extends EntityRepository
      *
      * @return Pagerfanta
      */
-    public function findPaginatedLatestByTopic(Topic $topic, $page = 1)
+    public function findLatest(Topic $topic, $page = 1)
     {
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatestByTopic($topic), false));
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest($topic), false));
         $paginator->setMaxPerPage(Comment::NUM_ITEMS);
         $paginator->setCurrentPage($page);
 

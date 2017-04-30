@@ -23,7 +23,7 @@ class GroupController extends Controller
     public function showAction(Group $group, $page)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findPaginatedLatestByGroup($group, $page);
+        $topics = $entityManager->getRepository(Topic::class)->findLatestByGroup($group, $page);
 
         return $this->render('GroupBundle:Group:show.html.twig', [
             'group'  => $group,
