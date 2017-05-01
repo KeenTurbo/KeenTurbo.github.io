@@ -38,11 +38,11 @@ class TimeExtension extends \Twig_Extension
         }
 
         if ($distanceInMinutes < 60) {
-            return sprintf('%d 分钟前', $distanceInMinutes);
+            return sprintf('%d分钟前', $distanceInMinutes);
         }
 
         if ($distanceInMinutes <= 1440) {
-            return sprintf('%d 小时前', round($distanceInMinutes / 60));
+            return sprintf('%d小时前', round($distanceInMinutes / 60));
         }
 
         return $time->format('n月j日 H:i');
