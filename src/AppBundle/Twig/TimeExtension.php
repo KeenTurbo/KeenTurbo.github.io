@@ -17,6 +17,11 @@ class TimeExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * @param \DateTime $time
+     *
+     * @return string
+     */
     public function agoFilter(\DateTime $time)
     {
         $difference = time() - $time->format('U');
