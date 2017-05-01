@@ -13,7 +13,7 @@
         <link rel="apple-touch-icon" href="{{ asset('img/touch-icon-iphone.png') }}" />
     </head>
     <body>
-        <!--[if lt IE 9]>
+        <!--[if lt IE 10]>
         <div class="browser-warning">
             <div class="message">
                 你正在使用低版本 IE 浏览器，请安装 <a href="http://www.google.com/chrome/">Google Chrome</a> 浏览器。
@@ -46,7 +46,7 @@
                                     <a class="nav-item-link dropdown-toggle"
                                        href="{{ path('settings_index') }}"
                                        data-toggle="dropdown">
-                                        {{ app.user.username }}
+                                        {{ app.user.name }}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>

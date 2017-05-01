@@ -15,21 +15,26 @@
         <ul class="topic-list-items">
             {% for topic in topics %}
                 <li class="topic-list-item">
-                    <a href="{{ path('topic_show', {'id': topic.id}) }}" class="topic-item-title">{{ topic.title }}</a>
-                    <div class="topic-item-meta">
-                        <span><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.numComments }}回复</a></span>
-                        <span class="topic-item-meta-bullet">•</span>
-                        <span><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a></span>
-                        {% if topic.lastComment %}
-                            <span class="topic-item-meta-bullet">•</span>
-                            <abbr>{{ topic.lastComment.createdAt | date('m-d H:i') }}</abbr>
-                            <span class="topic-item-meta-bullet">•</span>
-                            <span>最后回复 <a href="{{ path('user_profile', {'username': topic.lastComment.user.username }) }}">{{ topic.lastComment.user.name }}</a></span>
-                        {% else %}
-                            <span class="topic-item-meta-bullet">•</span>
-                            <abbr>{{ topic.createdAt | date('m-d H:i') }}</abbr>
-                        {% endif %}
+                    <div class="list-topic-grouper list-topic-main-grouper">
+                        <a href="{{ path('topic_show', {'id': topic.id}) }}#comment{{ topic.numComments }}" class="topic-item-title">{{ topic.title }}</a>
+                        <div class="topic-item-meta">
+                            <span><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a></span>
+                            {% if topic.lastComment %}
+                                <span class="topic-item-meta-bullet">•</span>
+                                <abbr>{{ topic.lastComment.createdAt | date('m-d H:i') }}</abbr>
+                                <span class="topic-item-meta-bullet">•</span>
+                                <span>最后回复 <a href="{{ path('user_profile', {'username': topic.lastComment.user.username }) }}">{{ topic.lastComment.user.name }}</a></span>
+                            {% else %}
+                                <span class="topic-item-meta-bullet">•</span>
+                                <abbr>{{ topic.createdAt | date('m-d H:i') }}</abbr>
+                            {% endif %}
+                        </div>
                     </div>
+                    {% if topic.numComments %}
+                        <div class="list-topic-grouper list-topic-comment-grouper">
+                            <a href="{{ path('topic_show', {'id': topic.id}) }}#comment{{ topic.numComments }}" class="topic-comment-number">{{ topic.numComments }}</a>
+                        </div>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

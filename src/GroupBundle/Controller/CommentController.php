@@ -56,7 +56,7 @@ class CommentController extends Controller
 
             return $this->redirectToRoute('topic_show', [
                 'id'        => $topic->getId(),
-                '_fragment' => 'comment-' . $comment->getId()
+                '_fragment' => 'comment' . $topic->getNumComments()
             ]);
         }
 
@@ -88,7 +88,7 @@ class CommentController extends Controller
 
             return $this->redirectToRoute('topic_show', [
                 'id'        => $comment->getTopic()->getId(),
-                '_fragment' => 'comment-' . $comment->getId()
+                '_fragment' => 'comment' . $comment->getTopic()->getNumComments()
             ]);
         }
 
