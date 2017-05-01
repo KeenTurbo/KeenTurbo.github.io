@@ -21,12 +21,12 @@
                             <span><a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a></span>
                             {% if topic.lastComment %}
                                 <span class="topic-item-meta-bullet">•</span>
-                                <abbr>{{ topic.lastComment.createdAt | date('m-d H:i') }}</abbr>
+                                <span title="{{ topic.lastComment.createdAt | date('Y-m-d H:i') }}">{{ topic.lastComment.createdAt | ago }}</span>
                                 <span class="topic-item-meta-bullet">•</span>
                                 <span>最后回复 <a href="{{ path('user_profile', {'username': topic.lastComment.user.username }) }}">{{ topic.lastComment.user.name }}</a></span>
                             {% else %}
                                 <span class="topic-item-meta-bullet">•</span>
-                                <abbr>{{ topic.createdAt | date('m-d H:i') }}</abbr>
+                                <span title="{{ topic.createdAt | date('Y-m-d H:i') }}">{{ topic.createdAt | ago }}</span>
                             {% endif %}
                         </div>
                     </div>

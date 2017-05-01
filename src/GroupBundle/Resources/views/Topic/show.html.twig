@@ -9,7 +9,7 @@
             <h1><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></h1>
             <div class="topic-header-meta">
                 <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a>
-                <span>发布于 {{ topic.createdAt | date('Y-m-d H:i') }}</span>
+                <span title="{{ topic.createdAt | date('Y-m-d H:i') }}">发布于 {{ topic.createdAt | ago }}</span>
             </div>
         </div>
 
@@ -58,7 +58,7 @@
                             {{ comment.body | purify }}
                         </div>
                         <div class="topic-comment-footer">
-                            <span class="float-left">{{ comment.createdAt | date('m-d H:i') }}</span>
+                            <span class="float-left" title="{{ comment.createdAt | date('Y-m-d H:i') }}">{{ comment.createdAt | ago }}</span>
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
                                 <a href="javascript:void(0)" class="action-quote">回复</a>
