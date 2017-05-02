@@ -24,25 +24,32 @@ class TimeExtension extends \Twig_Extension
      */
     public function agoFilter(\DateTime $time)
     {
-        $difference = time() - $time->format('U');
+        $now = new \DateTime();
+        $difference = $now->getTimestamp() - $time->getTimestamp();
 
         $distanceInSeconds = round(abs($difference));
         $distanceInMinutes = round((abs($difference) / 60));
+        $distanceInHours = round((abs($difference) / 60 / 60));
+        $hoursOfToday = intval($now->format('G'));
 
         if ($distanceInMinutes < 1) {
             if ($distanceInSeconds < 5) {
                 return '刚刚';
             }
 
-            return '几秒前';
+            return sprintf('%d秒前', $distanceInSeconds);
         }
 
         if ($distanceInMinutes < 60) {
             return sprintf('%d分钟前', $distanceInMinutes);
         }
 
-        if ($distanceInMinutes <= 1440) {
-            return sprintf('%d小时前', round($distanceInMinutes / 60));
+        if ($distanceInHours <= $hoursOfToday) {
+            return $time->format('今天 H:i');
+        }
+
+        if ($distanceInHours <= $hoursOfToday + 24) {
+            return $time->format('昨天 H:i');
         }
 
         return $time->format('n月j日 H:i');
