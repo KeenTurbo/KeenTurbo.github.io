@@ -100,6 +100,20 @@ class User implements AdvancedUserInterface
     private $name;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lastIp;
+
+    /**
      * @var array
      *
      * @ORM\Column(type="array")
@@ -247,6 +261,46 @@ class User implements AdvancedUserInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param \DateTime $lastLogin
+     *
+     * @return self
+     */
+    public function setLastLogin(\DateTime $lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastIp()
+    {
+        return $this->lastIp;
+    }
+
+    /**
+     * @param string $lastIp
+     *
+     * @return self
+     */
+    public function setLastIp($lastIp)
+    {
+        $this->lastIp = $lastIp;
 
         return $this;
     }

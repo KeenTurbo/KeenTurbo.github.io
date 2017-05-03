@@ -4,3 +4,9 @@ services:
         arguments: ['@security.authentication.manager', '@security.token_storage', 'main']
         tags:
             - { name: kernel.event_subscriber }
+
+    user.interactive_login_subscriber:
+        class: UserBundle\EventListener\LastLoginSubscriber
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: kernel.event_subscriber }
