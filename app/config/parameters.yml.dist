@@ -28,3 +28,6 @@ parameters:
     # assets
     assets_base_urls: ['https://static.cshome.com']
     assets_version: ~
+
+    # reserved words
+    validator_reserved_words: ['admin', 'administrator', 'webmaster', 'fuck', 'shit', 'bitch','piss']
