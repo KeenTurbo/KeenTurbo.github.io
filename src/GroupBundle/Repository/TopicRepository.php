@@ -5,6 +5,8 @@ namespace GroupBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use GroupBundle\Entity\Group;
 use GroupBundle\Entity\Topic;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
@@ -12,37 +14,57 @@ use GroupBundle\Entity\Topic;
 class TopicRepository extends EntityRepository
 {
     /**
-     * @return array
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findLatest()
+    public function queryLatest()
     {
-        $query = $this->getEntityManager()->createQuery('
-            SELECT t
-            FROM GroupBundle:Topic t
-            WHERE t.deletedAt IS NULL
-            ORDER BY t.touchedAt DESC
-        ');
-
-        return $query->getResult();
+        return $this->createQueryBuilder('t')
+            ->select('t,u,g,c')
+            ->join('t.user', 'u')
+            ->join('t.group', 'g')
+            ->leftJoin('t.lastComment', 'c')
+            ->where('t.deletedAt IS NULL')
+            ->orderBy('t.touchedAt', 'DESC');
     }
 
     /**
      * @param Group $group
      *
-     * @return array
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findLatestByGroup(Group $group, $limit = Topic::NUM_ITEMS)
+    public function queryLatestByGroup(Group $group)
     {
-        $query = $this->getEntityManager()->createQuery('
-            SELECT t
-            FROM GroupBundle:Topic t
-            WHERE t.deletedAt IS NULL
-            AND t.group = :group
-            ORDER BY t.touchedAt DESC
-        ')
-            ->setParameter('group', $group)
-            ->setMaxResults($limit);
+        return $this->queryLatest()
+            ->andWhere('t.group = :group')
+            ->setParameter('group', $group);
+    }
 
-        return $query->getResult();
+    /**
+     * @param int $page
+     *
+     * @return Pagerfanta
+     */
+    public function findLatest($page = 1)
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest(), false));
+        $paginator->setMaxPerPage(Topic::NUM_ITEMS);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
+    }
+
+    /**
+     * @param Group $group
+     * @param int   $page
+     *
+     * @return Pagerfanta
+     */
+    public function findLatestByGroup(Group $group, $page = 1)
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatestByGroup($group), false));
+        $paginator->setMaxPerPage(Topic::NUM_ITEMS);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
     }
 }

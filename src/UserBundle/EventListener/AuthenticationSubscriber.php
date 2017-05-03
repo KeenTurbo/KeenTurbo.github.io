@@ -2,12 +2,12 @@
 
 namespace UserBundle\EventListener;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use UserBundle\Entity\User;
+use UserBundle\Event\UserEvent;
 use UserBundle\Events;
 
 /**
@@ -55,17 +55,20 @@ class AuthenticationSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param GenericEvent $event
+     * @param UserEvent                $event
+     * @param string                   $eventName
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function authenticate(GenericEvent $event)
+    public function authenticate(UserEvent $event, $eventName, EventDispatcherInterface $eventDispatcher)
     {
-        /** @var User $user */
-        $user = $event->getSubject();
+        $user = $event->getUser();
 
         $token = new UsernamePasswordToken($user, null, $this->firewallName, $user->getRoles());
 
         $authToken = $this->authenticationManager->authenticate($token);
 
         $this->tokenStorage->setToken($authToken);
+
+        $eventDispatcher->dispatch(Events::SECURITY_IMPLICIT_LOGIN, $event);
     }
 }

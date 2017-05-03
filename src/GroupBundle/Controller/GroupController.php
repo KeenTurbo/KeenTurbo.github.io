@@ -4,6 +4,7 @@ namespace GroupBundle\Controller;
 
 use GroupBundle\Entity\Group;
 use GroupBundle\Entity\Topic;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,13 +15,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class GroupController extends Controller
 {
     /**
-     * @Route("/group/{slug}", name="group_show")
+     * @Route("/group/{slug}", defaults={"page": 1}, name="group_show")
+     * @Route("/group/{slug}/p/{page}", requirements={"page": "[1-9]\d*"}, name="group_show_paginated")
      * @Method("GET")
+     * @Cache(smaxage="5")
      */
-    public function showAction(Group $group)
+    public function showAction(Group $group, $page)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $topics = $entityManager->getRepository(Topic::class)->findLatestByGroup($group);
+        $topics = $entityManager->getRepository(Topic::class)->findLatestByGroup($group, $page);
 
         return $this->render('GroupBundle:Group:show.html.twig', [
             'group'  => $group,

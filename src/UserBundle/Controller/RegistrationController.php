@@ -5,9 +5,9 @@ namespace UserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
+use UserBundle\Event\UserEvent;
 use UserBundle\Events;
 use UserBundle\Form\RegistrationType;
 
@@ -39,7 +39,7 @@ class RegistrationController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $event = new GenericEvent($user);
+            $event = new UserEvent($user, $request);
 
             $this->get('event_dispatcher')->dispatch(Events::USER_CREATED, $event);
 

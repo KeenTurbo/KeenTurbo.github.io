@@ -31,7 +31,8 @@
         "twig/twig": "^1.0||^2.0",
         "ezyang/htmlpurifier": "^4.8",
         "aliyuncs/oss-sdk-php": "^2.2",
-        "erusev/parsedown": "^1.6"
+        "erusev/parsedown": "^1.6",
+        "white-october/pagerfanta-bundle": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

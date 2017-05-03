@@ -3,15 +3,17 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>{% block title %}长沙之家{% endblock %}</title>
+        <title>{% if block('title') %}{% block title %}{% endblock %} - {% endif %}长沙之家</title>
         <link rel="dns-prefetch" href="//pic1.cshome.com">
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0.min.css') }}" />
         {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" sizes="64x64" type="image/png" />
+        <link rel="apple-touch-icon" href="{{ asset('img/touch-icon-iphone.png') }}" />
     </head>
     <body>
-        <!--[if lt IE 9]>
+        <!--[if lt IE 10]>
         <div class="browser-warning">
             <div class="message">
                 你正在使用低版本 IE 浏览器，请安装 <a href="http://www.google.com/chrome/">Google Chrome</a> 浏览器。
@@ -20,62 +22,65 @@
         <![endif]-->
         {% block header %}
             <header class="site-header fixed-top">
-                <nav class="navbar navbar-toggleable-md navbar-light">
-                    <div class="container">
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-smile-o"></i> 长沙之家</a>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                            <ul class="navbar-nav mx-lg-2">
-                                <li class="nav-item"><a class="nav-link" href="{{ path('homepage') }}">首页</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('group_show', {'slug': 'changsha'}) }}">长沙城事</a></li>
-                            </ul>
-
-                            <form class="navbar-search form-inline ml-lg-2" action="javascript:void(0)">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="搜索主题">
-                                    <button class="btn btn-outline-secondary btn-search" type="submit">搜索
-                                    </button>
-                                </div>
-                            </form>
-
-                            {% if app.user %}
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle"
-                                           href="{{ path('settings_index') }}"
-                                           data-toggle="dropdown">
-                                            {{ app.user.username }}
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            {% else %}
-                                <ul class="navbar-nav signup-login-links">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('user_register') }}">注册</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('security_login') }}">登录</a>
-                                    </li>
-                                </ul>
-                                <div class="signup-login-buttons">
-                                    <a class="btn btn-outline-secondary" href="{{ path('security_login') }}">登录</a>
-                                    <a class="btn btn-primary" href="{{ path('user_register') }}">注册</a>
-                                </div>
-                            {% endif %}
-
+                <div class="container">
+                    <nav class="header-navbar">
+                        <div class="header-logo">
+                            <a href="{{ path('homepage') }}"><span>长沙之家</span></a>
                         </div>
-                    </div>
-                </nav>
+
+                        <form class="header-search" action="javascript:void(0)">
+                            <div class="input-group">
+                                <input class="form-control" name="query" type="text" placeholder="搜索主题">
+                                <button class="btn btn-outline-secondary btn-search" type="submit">搜索</button>
+                            </div>
+                        </form>
+
+                        <ul class="header-nav">
+                            <li><a class="nav-item-link" href="{{ path('homepage') }}">首页</a></li>
+                            <li><a class="nav-item-link" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a></li>
+                        </ul>
+
+                        {% if app.user %}
+                            <ul class="header-nav more-nav">
+                                <li class="dropdown">
+                                    <a class="nav-item-link dropdown-toggle"
+                                       href="{{ path('settings_index') }}"
+                                       data-toggle="dropdown">
+                                        {{ app.user.name }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <div class="signup-login-buttons">
+                                <a class="btn btn-outline-secondary" href="{{ path('security_login') }}">登录</a>
+                                <a class="btn btn-primary" href="{{ path('user_register') }}">注册</a>
+                            </div>
+                        {% endif %}
+
+                        <div class="mobile-nav">
+                            <button class="mobile-nav-toggle" data-toggle="dropdown">
+                                <span class="mobile-nav-toggle-inner"></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ path('homepage') }}">首页</a>
+                                <a class="dropdown-item" href="{{ path('group_show', {'slug': 'changsha'}) }}">大城小事</a>
+                                <div class="dropdown-divider"></div>
+                                {% if app.user %}
+                                    <a class="dropdown-item" href="{{ path('settings_index') }}">我的账号</a>
+                                    <a class="dropdown-item" href="{{ path('security_logout') }}">退出</a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{{ path('security_login') }}">登录</a>
+                                    <a class="dropdown-item" href="{{ path('user_register') }}">注册</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </nav>
+                </div>
             </header>
         {% endblock %}
         <div class="container page-container">

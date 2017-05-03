@@ -19,3 +19,15 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+
+    app.twig.time_extension:
+        class: AppBundle\Twig\TimeExtension
+        public: false
+        tags:
+            - { name:  twig.extension }
+
+    app.pagerfanta.view.simple:
+        class: AppBundle\View\Pagerfanta\SimpleView
+        public: false
+        tags:
+            - { name: pagerfanta.view, alias: simple }

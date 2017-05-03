@@ -49,6 +49,7 @@ class TopicCountersSubscriber implements EventSubscriberInterface
         $topic = $comment->getTopic();
 
         $topic->incrementNumComments(1);
+        $topic->setLastComment($comment);
         $topic->setTouchedAt($comment->getCreatedAt());
 
         $this->entityManager->persist($topic);

@@ -9,7 +9,7 @@
             <h1><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></h1>
             <div class="topic-header-meta">
                 <a href="{{ path('user_profile', {'username': topic.user.username }) }}">{{ topic.user.name }}</a>
-                <span>发布于 {{ topic.createdAt | date('Y-m-d H:i:s') }}</span>
+                <span title="{{ topic.createdAt | date('Y-m-d H:i') }}">发布于 {{ topic.createdAt | ago }}</span>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
     {% if topic.numComments > 0 %}
         <div class="topic-comments">
             <div class="topic-comments-header">
-                <h2>回复({{ topic.numComments }})</h2>
+                <h2>回复 ({{ topic.numComments }})</h2>
             </div>
 
             <ul class="topic-comments-list">
@@ -55,10 +55,10 @@
                         {% endif %}
 
                         <div class="topic-comment-body">
-                            {{ comment.body | nl2br }}
+                            {{ comment.body | purify }}
                         </div>
                         <div class="topic-comment-footer">
-                            <span class="float-left">{{ comment.createdAt | date('m-d H:i:s') }}</span>
+                            <span class="float-left" title="{{ comment.createdAt | date('Y-m-d H:i') }}">{{ comment.createdAt | ago }}</span>
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
                                 <a href="javascript:void(0)" class="action-quote">回复</a>
@@ -82,6 +82,10 @@
                 {% endfor %}
             </ul>
         </div>
+
+        {% if comments.haveToPaginate %}
+            {{ pagerfanta(comments, 'simple', { routeName: 'topic_show_paginated', routeParams: { id: topic.id } }) }}
+        {% endif %}
     {% endif %}
 
     <div class="topic-comment-form">

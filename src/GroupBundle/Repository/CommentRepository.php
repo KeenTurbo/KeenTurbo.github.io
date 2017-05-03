@@ -3,7 +3,10 @@
 namespace GroupBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use GroupBundle\Entity\Comment;
 use GroupBundle\Entity\Topic;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
@@ -13,19 +16,32 @@ class CommentRepository extends EntityRepository
     /**
      * @param Topic $topic
      *
-     * @return array
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findLatestByTopic(Topic $topic)
+    public function queryLatest(Topic $topic)
     {
-        $query = $this->getEntityManager()
-            ->createQuery('
-            SELECT c
-            FROM GroupBundle:Comment c
-            WHERE c.deletedAt IS NULL
-            AND c.topic = :topic
-            ORDER BY c.createdAt ASC
-        ')->setParameter('topic', $topic);
+        return $this->createQueryBuilder('c')
+            ->select('c,t,u')
+            ->join('c.topic', 't')
+            ->join('c.user', 'u')
+            ->where('c.deletedAt IS NULL')
+            ->andWhere('c.topic = :topic')
+            ->orderBy('c.createdAt', 'ASC')
+            ->setParameter('topic', $topic);
+    }
 
-        return $query->getResult();
+    /**
+     * @param Topic $topic
+     * @param int   $page
+     *
+     * @return Pagerfanta
+     */
+    public function findLatest(Topic $topic, $page = 1)
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest($topic), false));
+        $paginator->setMaxPerPage(Comment::NUM_ITEMS);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
     }
 }

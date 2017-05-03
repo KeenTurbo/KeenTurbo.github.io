@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Validator\Constraints as UserAssert;
 
 /**
  * @author Wenming Tang <wenming@cshome.com>
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="cshome_user")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @UniqueEntity("username", message="用户名不可用", groups={"registration"})
+ * @UniqueEntity("name", message="昵称不可用", groups={"profile_edit"})
  */
 class User implements AdvancedUserInterface
 {
@@ -47,6 +49,10 @@ class User implements AdvancedUserInterface
      * @Assert\Regex(
      *     pattern="/^[a-z0-9][a-z0-9_]+[a-z0-9]$/i",
      *     message="用户名只能包含字母、数字、下划线，但不能以下划线开头和结尾",
+     *     groups={"registration"}
+     * )
+     * @UserAssert\ReservedWords(
+     *     message="用户名 {{ value }} 不可用",
      *     groups={"registration"}
      * )
      */
@@ -86,18 +92,36 @@ class User implements AdvancedUserInterface
      *
      * @ORM\Column(type="string", length=20, nullable=true)
      * @Assert\NotBlank(
-     *     message="名字不能为空",
+     *     message="昵称不能为空",
      *     groups={"profile_edit"}
      * )
      * @Assert\Length(
      *     min="2",
-     *     minMessage="名字长度不能少于 {{ limit }} 个字符",
+     *     minMessage="昵称长度不能少于 {{ limit }} 个字符",
      *     max="20",
-     *     maxMessage="名字长度不能大于 {{ limit }} 个字符",
+     *     maxMessage="昵称长度不能大于 {{ limit }} 个字符",
+     *     groups={"profile_edit"}
+     * )
+     * @UserAssert\ReservedWords(
+     *     message="昵称 {{ value }} 不可用",
      *     groups={"profile_edit"}
      * )
      */
     private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lastIp;
 
     /**
      * @var array
@@ -247,6 +271,46 @@ class User implements AdvancedUserInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param \DateTime $lastLogin
+     *
+     * @return self
+     */
+    public function setLastLogin(\DateTime $lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastIp()
+    {
+        return $this->lastIp;
+    }
+
+    /**
+     * @param string $lastIp
+     *
+     * @return self
+     */
+    public function setLastIp($lastIp)
+    {
+        $this->lastIp = $lastIp;
 
         return $this;
     }
